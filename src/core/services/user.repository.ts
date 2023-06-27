@@ -21,7 +21,7 @@ export class UserRepository extends ApiRepository<User> {
   }
 
   async register(item: Partial<User>): Promise<User> {
-    const response = await fetch(this.url + "register/", {
+    const response = await fetch(this.url + "user/register", {
       method: "POST",
       body: JSON.stringify(item),
       headers: { "Content-Type": "application/json" },
@@ -30,7 +30,7 @@ export class UserRepository extends ApiRepository<User> {
   }
 
   async login(id: User["id"], item: Partial<User>): Promise<User> {
-    const response = await fetch(this.url + "login/" + (id as string), {
+    const response = await fetch(this.url + "user/login/" + id, {
       method: "PATCH",
       body: JSON.stringify(item),
       headers: { "Content-Type": "application/json" },
