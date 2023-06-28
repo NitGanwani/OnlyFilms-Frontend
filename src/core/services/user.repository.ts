@@ -29,8 +29,8 @@ export class UserRepository extends ApiRepository<User> {
     return response.json() as Promise<User>;
   }
 
-  async login(id: User["id"], item: Partial<User>): Promise<User> {
-    const response = await fetch(this.url + "user/login/" + id, {
+  async login(item: Partial<User>): Promise<User> {
+    const response = await fetch(this.url + "user/login/", {
       method: "PATCH",
       body: JSON.stringify(item),
       headers: { "Content-Type": "application/json" },

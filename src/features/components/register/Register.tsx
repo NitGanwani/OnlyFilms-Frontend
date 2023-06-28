@@ -1,9 +1,11 @@
 import { SyntheticEvent } from "react";
 import { useUsers } from "../../hooks/use.users";
 import { User } from "../../models/user";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const { handleRegisterUser } = useUsers();
+  const navigate = useNavigate();
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -15,6 +17,7 @@ export default function Register() {
     } as unknown as Partial<User>;
     handleRegisterUser(data);
     formElement.reset();
+    navigate("/login");
   };
 
   return (
