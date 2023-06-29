@@ -14,13 +14,13 @@ const initialState: UsersState = {
   token: localStorage.getItem("userToken") as string | undefined,
 };
 
-export const loadUsersAsync = createAsyncThunk(
-  "users/load",
-  async (repo: UserRepository) => {
-    const response = await repo.getAll();
-    return response;
-  }
-);
+// TEMP export const loadUsersAsync = createAsyncThunk(
+//   "users/load",
+//   async (repo: UserRepository) => {
+//     const response = await repo.getAll();
+//     return response;
+//   }
+// );
 
 export const registerUserAsync = createAsyncThunk<
   User,
@@ -44,12 +44,16 @@ const usersSlice = createSlice({
     getToken: (state, { payload }: PayloadAction<string>) => {
       state.token = payload;
     },
+    logoutUser: (state) => ({
+      ...state,
+      token: undefined,
+    }),
   },
   extraReducers: (builder) => {
-    builder.addCase(loadUsersAsync.fulfilled, (state, { payload }) => ({
-      ...state,
-      users: payload,
-    }));
+    // TEMP builder.addCase(loadUsersAsync.fulfilled, (state, { payload }) => ({
+    //   ...state,
+    //   users: payload,
+    // }));
     builder.addCase(registerUserAsync.fulfilled, (state, { payload }) => ({
       ...state,
       users: [...state.users, payload],
