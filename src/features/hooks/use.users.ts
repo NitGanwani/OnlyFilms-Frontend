@@ -1,12 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState, store } from "../../core/store/store";
-import { useCallback, useMemo } from "react";
-import {
-  ac,
-  loadUsersAsync,
-  loginUserAsync,
-  registerUserAsync,
-} from "../redux/users.slice";
+import { useMemo } from "react";
+import { ac, loginUserAsync, registerUserAsync } from "../redux/users.slice";
 import { User } from "../models/user";
 import { UserRepository } from "../../core/services/user.repository";
 
@@ -19,9 +14,9 @@ export function useUsers() {
 
   const repo: UserRepository = useMemo(() => new UserRepository(url), []);
 
-  const handleLoadUsers = useCallback(async () => {
-    dispatch(loadUsersAsync(repo));
-  }, [repo, dispatch]);
+  // TEMP const handleLoadUsers = useCallback(async () => {
+  //   dispatch(loadUsersAsync(repo));
+  // }, [repo, dispatch]);
 
   const handleRegisterUser = async (user: Partial<User>) => {
     dispatch(registerUserAsync({ repo, user }));
@@ -38,13 +33,18 @@ export function useUsers() {
     dispatch(ac.getToken(token));
   };
 
+  const handleLogoutUser = () => {
+    dispatch(ac.logoutUser());
+    localStorage.removeItem("userToken");
+  };
+
   return {
-    handleLoadUsers,
     users,
     handleRegisterUser,
     handleLoginUser,
     currentUser,
     token: token,
     handleGetToken,
+    handleLogoutUser,
   };
 }
