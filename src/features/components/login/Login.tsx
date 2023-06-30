@@ -26,11 +26,11 @@ export default function Login() {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="user">User</label>
-          <input type="text" id="user" name="user" />
+          <input type="text" id="user" name="user" required />
         </div>
         <div>
           <label htmlFor="password">Password</label>
-          <input type="password" id="password" name="password" />
+          <input type="password" id="password" name="password" required />
         </div>
         <button role="button" aria-selected="true" type="submit">
           Send

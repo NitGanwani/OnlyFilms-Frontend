@@ -29,15 +29,15 @@ export default function Register() {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="user">User Name: </label>
-          <input type="text" id="user" name="user" />
+          <input type="text" id="user" name="user" required />
         </div>
         <div>
           <label htmlFor="email">Email: </label>
-          <input type="email" id="email" name="email" />
+          <input type="email" id="email" name="email" required />
         </div>
         <div>
           <label htmlFor="password">Password: </label>
-          <input type="password" id="password" name="password" />
+          <input type="password" id="password" name="password" required />
         </div>
         <button type="submit">Sign Up</button>
       </form>
