@@ -10,12 +10,12 @@ export default function Login() {
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
     const element = event.target as HTMLFormElement;
+    const inputs = element.querySelectorAll("input");
     const loggedUser = {
-      user: (element.user as HTMLInputElement).value,
-      password: (element.password as HTMLInputElement).value,
+      user: inputs[0].value,
+      password: inputs[1].value,
     } as Partial<User>;
     handleLoginUser(loggedUser as Partial<User>);
-    console.log(loggedUser);
     element.reset();
     navigate("/list");
   };
@@ -25,14 +25,16 @@ export default function Login() {
       <h2>Log In</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="user">User / Email: </label>
+          <label htmlFor="user">User</label>
           <input type="text" id="user" name="user" />
         </div>
         <div>
-          <label htmlFor="password">Password: </label>
+          <label htmlFor="password">Password</label>
           <input type="password" id="password" name="password" />
         </div>
-        <button type="submit">Send</button>
+        <button role="button" aria-selected="true" type="submit">
+          Send
+        </button>
       </form>
     </>
   );
