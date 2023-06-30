@@ -15,6 +15,7 @@ export default {
   coveragePathIgnorePatterns: [
     "<rootDir>/src/main.tsx",
     "<rootDir>/src/vite-env.d.ts",
-    "<rootDir>/src/components/form",
+    "<rootDir>/src/core/store/store.ts",
+    "<rootDir>/src/features/components/app/App.tsx",
   ],
 };

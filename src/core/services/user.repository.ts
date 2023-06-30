@@ -1,24 +1,7 @@
 import { User } from "../../features/models/user";
-import { ApiRepository } from "./api.repository";
 
-// TEMP type ApiResponse = {
-//   items: User[];
-// };
-export class UserRepository extends ApiRepository<User> {
-  constructor(public url: string) {
-    super(url);
-  }
-
-  // TEMP async getAll(): Promise<User[]> {
-  //   const response = await fetch(this.url);
-  //   if (!response.ok) {
-  //     const message = `Error: ${response.status}. ${response.statusText}`;
-  //     throw new Error(message);
-  //   }
-
-  //   const data = response.json() as Promise<ApiResponse>;
-  //   return (await data).items;
-  // }
+export class UserRepository {
+  constructor(public url: string) {}
 
   async register(item: Partial<User>): Promise<User> {
     const response = await fetch(this.url + "user/register", {
@@ -30,7 +13,7 @@ export class UserRepository extends ApiRepository<User> {
   }
 
   async login(item: Partial<User>): Promise<User> {
-    const response = await fetch(this.url + "user/login/", {
+    const response = await fetch(this.url + "user/login", {
       method: "PATCH",
       body: JSON.stringify(item),
       headers: { "Content-Type": "application/json" },
