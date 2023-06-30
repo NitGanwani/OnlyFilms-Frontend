@@ -18,8 +18,11 @@ export default function Home() {
   };
 
   const handleRegister = () => {
-    console.log("Register");
     navigate("/register");
+  };
+
+  const handleFilmsList = () => {
+    navigate("/list");
   };
 
   const runLogout = () => {
@@ -29,7 +32,7 @@ export default function Home() {
   return (
     <>
       <header>
-        <h1>Sample Front</h1>
+        <h1>OnlyFilms</h1>
         <div>
           {token ? (
             <>
@@ -38,6 +41,7 @@ export default function Home() {
             </>
           ) : (
             <>
+              <button onClick={handleFilmsList}>Films</button>
               <button onClick={handleRegister}>Register</button>
               <button onClick={handleUser}>Login</button>
             </>
