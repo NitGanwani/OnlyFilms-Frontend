@@ -11,9 +11,12 @@ export default function Register() {
     event.preventDefault();
     const formElement = event.target as HTMLFormElement;
     const data = {
-      userName: (formElement.user as HTMLInputElement).value,
-      email: (formElement.email as HTMLInputElement).value,
-      password: (formElement.password as HTMLInputElement).value,
+      userName: (formElement.elements.namedItem("user") as HTMLInputElement)
+        .value,
+      email: (formElement.elements.namedItem("email") as HTMLInputElement)
+        .value,
+      password: (formElement.elements.namedItem("password") as HTMLInputElement)
+        .value,
     } as unknown as Partial<User>;
     handleRegisterUser(data);
     formElement.reset();
