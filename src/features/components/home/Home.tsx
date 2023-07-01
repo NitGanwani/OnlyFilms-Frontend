@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Header } from "../header/Header";
+import style from "./Home.module.scss";
 
 export default function Home() {
   // const { handleLogoutUser } = useUsers();
@@ -30,13 +31,25 @@ export default function Home() {
   return (
     <>
       <Header title="OnlyFilms" subtitle="Feel your films"></Header>
-      <div>
-        <Link to="/list">
-          <button>Films</button>
-        </Link>
-        <Link to="/register">
-          <button>Register</button>
-        </Link>
+      <div className={style.welcome}>
+        <span className={style.intro}>
+          Welcome to a unique place where you can express your feelings about
+          the films you've watched, and share them with the whole world.
+          Remember that the only condition to express your emotions is by using
+          a single unique sentence.
+        </span>
+        <div className={style.films}>
+          <span>
+            Feeling shy about sharing your emotions? Don't worry, feel free to
+            take a look to our list of <a href="/list">films</a>.
+          </span>
+        </div>
+        <div className={style.register}>
+          <span>
+            If you are ready to share your feelings,{" "}
+            <a href="/register">create your account here</a> and get started.
+          </span>
+        </div>
         <Link to="/login">
           <button>Login</button>
         </Link>
