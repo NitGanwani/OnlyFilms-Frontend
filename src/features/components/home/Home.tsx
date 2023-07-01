@@ -1,53 +1,46 @@
-import { useNavigate } from "react-router-dom";
-import { useUsers } from "../../hooks/use.users";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../core/store/store";
+import { Link } from "react-router-dom";
+import { Header } from "../header/Header";
 
 export default function Home() {
-  const { handleLogoutUser } = useUsers();
-  const navigate = useNavigate();
+  // const { handleLogoutUser } = useUsers();
+  // const navigate = useNavigate();
 
-  const { token, currentUser } = useSelector((state: RootState) => state.users);
+  // const { token } = useSelector((state: RootState) => state.users);
 
-  const handleUser = () => {
-    if (token) {
-      runLogout();
-    } else {
-      navigate("/login");
-    }
-  };
+  // const handleUser = () => {
+  //   if (token) {
+  //     runLogout();
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // };
 
-  const handleRegister = () => {
-    navigate("/register");
-  };
+  // const handleRegister = () => {
+  //   navigate("/register");
+  // };
 
-  const handleFilmsList = () => {
-    navigate("/list");
-  };
+  // const handleFilmsList = () => {
+  //   navigate("/list");
+  // };
 
-  const runLogout = () => {
-    handleLogoutUser();
-  };
+  // const runLogout = () => {
+  //   handleLogoutUser();
+  // };
 
   return (
     <>
-      <header>
-        <h1>OnlyFilms</h1>
-        <div>
-          {token ? (
-            <>
-              <button onClick={handleUser}>Logout</button>
-              <span>Hola, {currentUser.userName}</span>
-            </>
-          ) : (
-            <>
-              <button onClick={handleFilmsList}>Films</button>
-              <button onClick={handleRegister}>Register</button>
-              <button onClick={handleUser}>Login</button>
-            </>
-          )}
-        </div>
-      </header>
+      <Header title="OnlyFilms" subtitle="Feel your films"></Header>
+      <div>
+        <Link to="/list">
+          <button>Films</button>
+        </Link>
+        <Link to="/register">
+          <button>Register</button>
+        </Link>
+        <Link to="/login">
+          <button>Login</button>
+        </Link>
+      </div>
     </>
   );
 }
