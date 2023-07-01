@@ -3,6 +3,8 @@ import { useUsers } from "../../hooks/use.users";
 import { User } from "../../models/user";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import style from "./Register.module.scss";
+import { Header } from "../header/Header";
 
 export default function Register() {
   const { handleRegisterUser } = useUsers();
@@ -22,10 +24,10 @@ export default function Register() {
 
     if (data.userName === "" || data.email === "" || data.password === "") {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-        footer: '<a href="/register">Go Back</a>',
+        background: "black",
+        imageUrl: "/clay.gif",
+        imageHeight: "300px",
+        title: "",
       });
       navigate("/register");
     } else {
@@ -37,22 +39,28 @@ export default function Register() {
 
   return (
     <>
-      <h2>Get registered</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="user">User Name: </label>
-          <input type="text" id="user" name="user" />
+      <Header title="OnlyFilms" subtitle="Get Registered"></Header>
+      <div className={style.register}>
+        <div className={style.form}>
+          <form onSubmit={handleSubmit}>
+            <div className={style.inputs}>
+              <label htmlFor="user">User Name: </label>
+              <input type="text" id="user" name="user" />
+            </div>
+            <div className={style.inputs}>
+              <label htmlFor="email">Email: </label>
+              <input type="email" id="email" name="email" />
+            </div>
+            <div className={style.inputs}>
+              <label htmlFor="password">Password: </label>
+              <input type="password" id="password" name="password" />
+            </div>
+            <div className={style.submit}>
+              <button type="submit">Sign Up</button>
+            </div>
+          </form>
         </div>
-        <div>
-          <label htmlFor="email">Email: </label>
-          <input type="email" id="email" name="email" />
-        </div>
-        <div>
-          <label htmlFor="password">Password: </label>
-          <input type="password" id="password" name="password" />
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
+      </div>
     </>
   );
 }
