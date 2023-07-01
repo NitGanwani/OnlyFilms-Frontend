@@ -4,10 +4,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: "Ysabeau SC", sans-serif;
 
   h1 {
-    padding: 1em;
+    padding-top: 0.5em;
     margin: 0;
+    font-size: 2.8rem;
   }
 
   a {
@@ -20,7 +22,8 @@
   }
 
   h2 {
-    padding: 0;
     margin: 0;
+    padding: 0;
+    word-spacing: 0.7em;
   }
 }
