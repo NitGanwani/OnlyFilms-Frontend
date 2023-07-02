@@ -40,26 +40,25 @@ export default function Register() {
   return (
     <>
       <Header title="OnlyFilms" subtitle="Get Registered"></Header>
-      <div className={style.register}>
-        <div className={style.form}>
-          <form onSubmit={handleSubmit}>
-            <div className={style.inputs}>
-              <label htmlFor="user">User Name: </label>
-              <input type="text" id="user" name="user" />
-            </div>
-            <div className={style.inputs}>
-              <label htmlFor="email">Email: </label>
-              <input type="email" id="email" name="email" />
-            </div>
-            <div className={style.inputs}>
-              <label htmlFor="password">Password: </label>
-              <input type="password" id="password" name="password" />
-            </div>
-            <div className={style.submit}>
-              <button type="submit">Sign Up</button>
-            </div>
-          </form>
-        </div>
+
+      <div className={style.form}>
+        <form onSubmit={handleSubmit}>
+          <div className={style.inputs}>
+            <label htmlFor="user">User Name: </label>
+            <input type="text" id="user" name="user" />
+          </div>
+          <div className={style.inputs}>
+            <label htmlFor="email">Email: </label>
+            <input type="email" id="email" name="email" />
+          </div>
+          <div className={style.inputs}>
+            <label htmlFor="password">Password: </label>
+            <input type="password" id="password" name="password" />
+          </div>
+          <div className={style.submit}>
+            <button type="submit">Sign Up</button>
+          </div>
+        </form>
       </div>
     </>
   );

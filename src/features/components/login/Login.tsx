@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useUsers } from "../../hooks/use.users";
 import { SyntheticEvent } from "react";
 import { User } from "../../models/user";
+import { Header } from "../header/Header";
+import style from "./Login.module.scss";
 
 export default function Login() {
   const { handleLoginUser } = useUsers();
@@ -22,20 +24,24 @@ export default function Login() {
 
   return (
     <>
-      <h2>Log In</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="user">User</label>
-          <input type="text" id="user" name="user" required />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <button role="button" aria-selected="true" type="submit">
-          Send
-        </button>
-      </form>
+      <Header title="OnlyFilms" subtitle="Login"></Header>
+      <div className={style.form}>
+        <form onSubmit={handleSubmit}>
+          <div className={style.inputs}>
+            <label htmlFor="user">User</label>
+            <input type="text" id="user" name="user" required />
+          </div>
+          <div className={style.inputs}>
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <div className={style.submit}>
+            <button role="button" aria-selected="true" type="submit">
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
     </>
   );
 }
