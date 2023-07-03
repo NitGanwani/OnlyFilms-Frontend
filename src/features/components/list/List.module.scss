@@ -4,4 +4,16 @@
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
+
+  ul {
+    height: fit-content;
+
+    li {
+      height: 3em;
+
+      img {
+        object-fit: contain;
+      }
+    }
+  }
 }
