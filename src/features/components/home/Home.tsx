@@ -32,23 +32,23 @@ export default function Home() {
     <>
       <Header title="OnlyFilms" subtitle="Feel your films"></Header>
       <div className={style.welcome}>
-        <span className={style.intro}>
+        <p className={style.intro}>
           Welcome to a unique place where you can express your feelings about
-          the films you've watched, and share them with the whole world.
+          the films you have watched, and share them with the whole world.
           Remember that the only condition to express your emotions is by using
           a single unique sentence.
-        </span>
+        </p>
         <div className={style.films}>
-          <span>
+          <p>
             Feeling shy about sharing your emotions? Don't worry, feel free to
             take a look to our list of <a href="/list">films</a>.
-          </span>
+          </p>
         </div>
         <div className={style.register}>
-          <span>
+          <p>
             If you are ready to share your feelings,{" "}
             <a href="/register">create your account here</a> and get started.
-          </span>
+          </p>
         </div>
         <Link to="/login">
           <button>Login</button>
