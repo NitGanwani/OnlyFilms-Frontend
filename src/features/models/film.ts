@@ -1,4 +1,4 @@
-import { Image } from "../components/types/image";
+import { Image } from "../types/image";
 
 export type Film = {
   id: string;
