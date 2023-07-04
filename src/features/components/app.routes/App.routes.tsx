@@ -6,6 +6,7 @@ const Login = lazy(() => import("../login/Login"));
 const List = lazy(() => import("../list/List"));
 const Home = lazy(() => import("../home/Home"));
 const FilmDetail = lazy(() => import("../film.detail/FilmDetail"));
+const ErrorPage = lazy(() => import("../error.page/ErrorPage"));
 
 export function AppRoutes() {
   return (
@@ -16,6 +17,7 @@ export function AppRoutes() {
         <Route path="/detail/:id" element={<FilmDetail></FilmDetail>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="*" element={<ErrorPage></ErrorPage>}></Route>
       </Routes>
     </Suspense>
   );
