@@ -3,17 +3,11 @@ import { render, screen, act } from "@testing-library/react";
 import { AppRoutes } from "./App.routes";
 import "@testing-library/jest-dom";
 
-const MockedComponent = jest
-  .fn()
-  .mockReturnValue(<h1>Nitin Component Test</h1>);
-
-jest.mock("../home/Home", () => MockedComponent);
-jest.mock("../list/List", () => MockedComponent);
-jest.mock("../register/Register", () => MockedComponent);
-jest.mock("../login/Login", () => MockedComponent);
-
 describe("Given the AppRoutes component", () => {
   describe("When it is instantiate with a route /", () => {
+    const MockedComponentHome = jest.fn().mockReturnValue(<h1>Home</h1>);
+    jest.mock("../home/Home", () => MockedComponentHome);
+
     let element: HTMLElement;
 
     beforeEach(async () => {
@@ -25,15 +19,17 @@ describe("Given the AppRoutes component", () => {
         )
       );
 
-      element = screen.getByText("Nitin Component Test");
+      element = screen.getByText("Home");
     });
     test("Then it should render Home", () => {
-      expect(MockedComponent).toHaveBeenCalled();
+      expect(MockedComponentHome).toHaveBeenCalled();
       expect(element).toBeInTheDocument();
     });
   });
 
   describe("When it is instantiate with a route /list", () => {
+    const MockedComponentList = jest.fn().mockReturnValue(<h1>List</h1>);
+    jest.mock("../list/List", () => MockedComponentList);
     let element: HTMLElement;
 
     beforeEach(async () => {
@@ -45,15 +41,19 @@ describe("Given the AppRoutes component", () => {
         )
       );
 
-      element = screen.getByText("Nitin Component Test");
+      element = screen.getByText("List");
     });
     test("Then it should render List", () => {
-      expect(MockedComponent).toHaveBeenCalled();
+      expect(MockedComponentList).toHaveBeenCalled();
       expect(element).toBeInTheDocument();
     });
   });
 
   describe("When it is instantiate with a route /register", () => {
+    const MockedComponentRegister = jest
+      .fn()
+      .mockReturnValue(<h1>Register</h1>);
+    jest.mock("../register/Register", () => MockedComponentRegister);
     let element: HTMLElement;
 
     beforeEach(async () => {
@@ -65,15 +65,17 @@ describe("Given the AppRoutes component", () => {
         )
       );
 
-      element = screen.getByText("Nitin Component Test");
+      element = screen.getByText("Register");
     });
     test("Then it should render Register", () => {
-      expect(MockedComponent).toHaveBeenCalled();
+      expect(MockedComponentRegister).toHaveBeenCalled();
       expect(element).toBeInTheDocument();
     });
   });
 
   describe("When it is instantiate with a route /login", () => {
+    const MockedComponentLogin = jest.fn().mockReturnValue(<h1>Login</h1>);
+    jest.mock("../login/Login", () => MockedComponentLogin);
     let element: HTMLElement;
 
     beforeEach(async () => {
@@ -85,10 +87,32 @@ describe("Given the AppRoutes component", () => {
         )
       );
 
-      element = screen.getByText("Nitin Component Test");
+      element = screen.getByText("Login");
     });
     test("Then it should render Login", () => {
-      expect(MockedComponent).toHaveBeenCalled();
+      expect(MockedComponentLogin).toHaveBeenCalled();
+      expect(element).toBeInTheDocument();
+    });
+  });
+
+  describe("When it is instantiate with a route /detail", () => {
+    const MockedComponentDetail = jest.fn().mockReturnValue(<h1>Detail</h1>);
+    jest.mock("../film.detail/FilmDetail", () => MockedComponentDetail);
+    let element: HTMLElement;
+
+    beforeEach(async () => {
+      await act(async () =>
+        render(
+          <Router initialEntries={["/detail/:id"]} initialIndex={0}>
+            <AppRoutes></AppRoutes>
+          </Router>
+        )
+      );
+
+      element = screen.getByText("Detail");
+    });
+    test("Then it should render Detail", () => {
+      expect(MockedComponentDetail).toHaveBeenCalled();
       expect(element).toBeInTheDocument();
     });
   });
