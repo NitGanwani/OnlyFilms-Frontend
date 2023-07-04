@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useFilms } from "../../hooks/use.films";
 import { Header } from "../header/Header";
 import style from "./List.module.scss";
+import { FilmCard } from "../film/FilmCard";
 
 export default function List() {
   const { films, handleLoadFilms } = useFilms();
@@ -16,10 +17,7 @@ export default function List() {
         <Header title="OnlyFilms" subtitle="Feel your Films"></Header>
         <ul>
           {films.map((item) => (
-            <li key={item.id}>
-              {item.title}
-              <img src={item.poster.url} alt="" height="250" width="250" />
-            </li>
+            <FilmCard key={item.id} item={item}></FilmCard>
           ))}
         </ul>
       </div>
