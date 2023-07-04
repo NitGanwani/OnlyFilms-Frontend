@@ -18,6 +18,7 @@ export class UserRepository {
       body: JSON.stringify(item),
       headers: { "Content-Type": "application/json" },
     });
+    if (!response.ok) throw new Error();
     return response.json() as Promise<User>;
   }
 }

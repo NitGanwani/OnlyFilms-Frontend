@@ -28,8 +28,8 @@ describe("Given a FilmDetail component", () => {
           </Provider>
         </Router>
       );
-      const characterDetails = screen.getByText("Inception");
-      expect(characterDetails).toBeInTheDocument;
+      const filmDetails = screen.getByText("Inception");
+      expect(filmDetails).toBeInTheDocument;
     });
   });
 });

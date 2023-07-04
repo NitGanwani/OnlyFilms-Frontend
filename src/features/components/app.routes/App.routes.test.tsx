@@ -116,4 +116,26 @@ describe("Given the AppRoutes component", () => {
       expect(element).toBeInTheDocument();
     });
   });
+
+  describe("When it is instantiate with a route *", () => {
+    const MockedComponentError = jest.fn().mockReturnValue(<h1>Error</h1>);
+    jest.mock("../error.page/ErrorPage", () => MockedComponentError);
+    let element: HTMLElement;
+
+    beforeEach(async () => {
+      await act(async () =>
+        render(
+          <Router initialEntries={["/*"]} initialIndex={0}>
+            <AppRoutes></AppRoutes>
+          </Router>
+        )
+      );
+
+      element = screen.getByText("Error");
+    });
+    test("Then it should render ErrorPage", () => {
+      expect(MockedComponentError).toHaveBeenCalled();
+      expect(element).toBeInTheDocument();
+    });
+  });
 });
