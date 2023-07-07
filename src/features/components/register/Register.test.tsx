@@ -1,22 +1,32 @@
-import { MemoryRouter as Router, useNavigate } from "react-router-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { MemoryRouter as Router } from "react-router-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import Register from "./Register";
 import { store } from "../../../core/store/store";
-import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
+
+import userEvent from "@testing-library/user-event";
+import { useUsers } from "../../hooks/use.users";
+import Swal from "sweetalert2";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
-  useNavigate: jest.fn(),
+  useNavigate: () => jest.fn(),
+}));
+
+jest.mock("../../hooks/use.users", () => ({
+  useUsers: jest.fn().mockReturnValue({
+    handleRegisterUser: jest.fn(),
+  }),
+}));
+
+jest.mock("sweetalert2", () => ({
+  fire: jest.fn(),
 }));
 
 describe("Given the Register component", () => {
   describe("When register form is rendered", () => {
-    const navigateMock = jest.fn();
     beforeEach(() => {
-      (useNavigate as jest.Mock).mockReturnValue(navigateMock);
-
       render(
         <Provider store={store}>
           <Router>
@@ -26,27 +36,29 @@ describe("Given the Register component", () => {
       );
     });
 
-    // test("should render register form", () => {
-    //   const form = screen.getByRole("heading", { name: "Get registered" });
+    test("Then the Sign Up button should be in the document", () => {
+      const signUpButton = screen.getByRole("button");
+      expect(signUpButton).toBeInTheDocument();
+    });
 
-    //   expect(form).toBeInTheDocument();
-    // });
+    test("Then the handleRegisterUser should be called on form submit", async () => {
+      const form = screen.getByRole("form");
+      const button = screen.getByRole("button");
+      const inputs = screen.getAllByRole("textbox");
+      await userEvent.type(inputs[0], "Nitin");
+      await userEvent.type(inputs[1], "nitin@mail.com");
+      await userEvent.type(inputs[2], "12345");
+      userEvent.click(button);
+      await fireEvent.submit(form);
+      expect(useUsers().handleRegisterUser).toHaveBeenCalled();
+    });
 
-    test("Then the user should fill in the form and click on the 'Sign Up' button", () => {
-      const usernameInput = screen.getByLabelText("User Name:");
-      const emailInput = screen.getByLabelText("Email:");
-      const passwordInput = screen.getByLabelText("Password:");
-      const signUpButton = screen.getByText("Sign Up");
-
-      userEvent.type(usernameInput, "Juancho");
-      userEvent.type(emailInput, "juancho@caballo.com");
-      userEvent.type(passwordInput, "goddamn");
-
-      fireEvent.click(signUpButton);
-
-      expect(usernameInput).toHaveValue("");
-      expect(emailInput).toHaveValue("");
-      expect(passwordInput).toHaveValue("");
+    test("Then the handleRegisterUser should be called on form submit", async () => {
+      const form = screen.getByRole("form");
+      const button = screen.getByRole("button");
+      userEvent.click(button);
+      await fireEvent.submit(form);
+      expect(Swal.fire).toHaveBeenCalled();
     });
   });
 });

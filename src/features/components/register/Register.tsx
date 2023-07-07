@@ -20,16 +20,22 @@ export default function Register() {
         .value,
       password: (formElement.elements.namedItem("password") as HTMLInputElement)
         .value,
-    } as unknown as Partial<User>;
+    } as Partial<User>;
 
     if (data.userName === "" || data.email === "" || data.password === "") {
       Swal.fire({
-        background: "black",
-        imageUrl: "/clay.gif",
-        imageHeight: "300px",
-        title: "",
+        width: "20em",
+        icon: "error",
+        title: "ERROR",
+        text: "INVALID USERNAME OR PASSWORD",
+        background:
+          "linear-gradient(to right, rgba(20, 20, 20), rgba(0, 0, 0))",
+        color: "white",
+        iconColor: "red",
+        showConfirmButton: false,
+        padding: "4em 0",
+        timer: 2000,
       });
-      navigate("/register");
     } else {
       handleRegisterUser(data);
       formElement.reset();
@@ -42,18 +48,24 @@ export default function Register() {
       <Header title="OnlyFilms" subtitle="Get Registered"></Header>
 
       <div className={style.form}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} aria-label="form">
           <div className={style.inputs}>
             <label htmlFor="user">User Name: </label>
             <input type="text" id="user" name="user" />
           </div>
           <div className={style.inputs}>
             <label htmlFor="email">Email: </label>
-            <input type="email" id="email" name="email" />
+            <input type="email" id="email" name="email" role="textbox" />
           </div>
           <div className={style.inputs}>
             <label htmlFor="password">Password: </label>
-            <input type="password" id="password" name="password" />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              data-testid="password"
+              role="textbox"
+            />
           </div>
           <div className={style.submit}>
             <button type="submit">Sign Up</button>
