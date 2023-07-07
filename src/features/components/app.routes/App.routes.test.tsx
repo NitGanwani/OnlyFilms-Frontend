@@ -117,6 +117,28 @@ describe("Given the AppRoutes component", () => {
     });
   });
 
+  describe("When it is instantiate with a route /create", () => {
+    const MockedComponentCreate = jest.fn().mockReturnValue(<h1>Create</h1>);
+    jest.mock("../create.film/Create.film", () => MockedComponentCreate);
+    let element: HTMLElement;
+
+    beforeEach(async () => {
+      await act(async () =>
+        render(
+          <Router initialEntries={["/create"]} initialIndex={0}>
+            <AppRoutes></AppRoutes>
+          </Router>
+        )
+      );
+
+      element = screen.getByText("Create");
+    });
+    test("Then it should render Detail", () => {
+      expect(MockedComponentCreate).toHaveBeenCalled();
+      expect(element).toBeInTheDocument();
+    });
+  });
+
   describe("When it is instantiate with a route *", () => {
     const MockedComponentError = jest.fn().mockReturnValue(<h1>Error</h1>);
     jest.mock("../error.page/ErrorPage", () => MockedComponentError);
