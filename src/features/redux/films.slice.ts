@@ -18,6 +18,13 @@ export const loadFilmsAsync = createAsyncThunk(
   }
 );
 
+export const createFilmAsync = createAsyncThunk<
+  Film,
+  { repo: FilmRepository; film: FormData }
+>("films/create", async ({ repo, film }) => {
+  return await repo.create(film);
+});
+
 const filmsSlice = createSlice({
   name: "films",
   initialState,
@@ -26,6 +33,10 @@ const filmsSlice = createSlice({
     builder.addCase(loadFilmsAsync.fulfilled, (state, { payload }) => ({
       ...state,
       films: payload,
+    }));
+    builder.addCase(createFilmAsync.fulfilled, (state, { payload }) => ({
+      ...state,
+      films: [...state.films, payload],
     }));
   },
 });
