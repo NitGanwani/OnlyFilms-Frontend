@@ -2,7 +2,7 @@ import { ApiAnswer } from "../../features/types/api.response";
 import { Film } from "../../features/models/film";
 
 export class FilmRepository {
-  constructor(public url: string) {}
+  constructor(public url: string, public token: string) {}
 
   async getAll(): Promise<Film[]> {
     const response = await fetch(this.url);
@@ -11,7 +11,15 @@ export class FilmRepository {
       throw new Error(message);
     }
     const answer = (await response.json()) as ApiAnswer;
-    console.log(answer);
     return answer.items;
+  }
+
+  async create(item: FormData): Promise<Film> {
+    const response = await fetch(this.url + "/create", {
+      method: "POST",
+      body: item,
+      headers: { Authorization: "Bearer " + this.token },
+    });
+    return response.json() as Promise<Film>;
   }
 }
