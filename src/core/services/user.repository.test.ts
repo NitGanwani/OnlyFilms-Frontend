@@ -66,5 +66,29 @@ describe("UserRepository", () => {
       });
       expect(loggedInUser).toEqual(mockResponse);
     });
+
+    test("Then it should throw an error if the fetch is not successful", async () => {
+      const user = {
+        email: "lanzarote@bandido.com",
+        password: "delinkinpapi",
+      };
+      const error = new Error("Error in login process");
+
+      const expectedUrl = "https://onlyfilms.sampleurl.com/user/login";
+
+      global.fetch = jest.fn().mockResolvedValue({
+        ok: false,
+        status: 400,
+        statusText: "Error in login process",
+      });
+
+      await expect(userRepository.login(user)).rejects.toThrow(error);
+
+      expect(global.fetch).toHaveBeenCalledWith(expectedUrl, {
+        method: "PATCH",
+        body: JSON.stringify(user),
+        headers: { "Content-Type": "application/json" },
+      });
+    });
   });
 });
