@@ -3,6 +3,7 @@ import { MemoryRouter as Router } from "react-router-dom";
 import FilmDetail from "./FilmDetail";
 import { Provider } from "react-redux";
 import { store } from "../../../core/store/store";
+import "@testing-library/jest-dom";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -29,7 +30,7 @@ describe("Given a FilmDetail component", () => {
         </Router>
       );
       const filmDetails = screen.getByText("Inception");
-      expect(filmDetails).toBeInTheDocument;
+      expect(filmDetails).toBeInTheDocument();
     });
   });
 });
