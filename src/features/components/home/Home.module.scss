@@ -42,6 +42,11 @@
       text-decoration: white;
     }
 
+    a:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
     a:visited {
       color: crimson;
     }

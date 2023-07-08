@@ -6,6 +6,7 @@ import { FilmCard } from "../film/FilmCard";
 import { useUsers } from "../../hooks/use.users";
 import { useNavigate } from "react-router-dom";
 import { PiFilmSlate } from "react-icons/pi";
+import { GiFilmProjector } from "react-icons/gi";
 import { ImExit } from "react-icons/im";
 
 export default function List() {
@@ -37,6 +38,12 @@ export default function List() {
                   </button>
                   <span>
                     <PiFilmSlate />
+                  </span>
+                </div>
+                <div>
+                  <button>YOUR FILMS </button>
+                  <span>
+                    <GiFilmProjector />
                   </span>
                 </div>
                 <div>
