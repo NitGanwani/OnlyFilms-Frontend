@@ -25,6 +25,13 @@ export const createFilmAsync = createAsyncThunk<
   return await repo.create(film);
 });
 
+export const updateFilmAsync = createAsyncThunk<
+  Film,
+  { repo: FilmRepository; id: Film["id"]; film: FormData }
+>("films/update", async ({ repo, id, film }) => {
+  return await repo.udpdate(id, film);
+});
+
 const filmsSlice = createSlice({
   name: "films",
   initialState,
@@ -37,6 +44,12 @@ const filmsSlice = createSlice({
     builder.addCase(createFilmAsync.fulfilled, (state, { payload }) => ({
       ...state,
       films: [...state.films, payload],
+    }));
+    builder.addCase(updateFilmAsync.fulfilled, (state, { payload }) => ({
+      ...state,
+      films: state.films.map((item) =>
+        item.id === payload.id ? payload : item
+      ),
     }));
   },
 });

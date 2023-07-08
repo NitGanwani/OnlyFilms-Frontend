@@ -2,7 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../core/store/store";
 import { FilmRepository } from "../../core/services/film.repository";
 import { useCallback, useMemo } from "react";
-import { createFilmAsync, loadFilmsAsync } from "../redux/films.slice";
+import {
+  createFilmAsync,
+  loadFilmsAsync,
+  updateFilmAsync,
+} from "../redux/films.slice";
+import { Film } from "../models/film";
 
 export function useFilms() {
   const { films } = useSelector((state: RootState) => state.films);
@@ -24,9 +29,14 @@ export function useFilms() {
     dispatch(createFilmAsync({ repo, film }));
   };
 
+  const handleUpdateFilm = async (id: Film["id"], film: FormData) => {
+    await dispatch(updateFilmAsync({ repo, id, film }));
+  };
+
   return {
     films,
     handleLoadFilms,
     handleCreateFilm,
+    handleUpdateFilm,
   };
 }
