@@ -49,7 +49,7 @@ export default function List() {
             </section>
           </>
         ) : (
-          <p>Hola don Nadie</p>
+          ""
         )}
         <div className={style.films}>
           <ul>
