@@ -5,6 +5,7 @@ import style from "./Create.film.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { Film } from "../../models/film";
 import Swal from "sweetalert2";
+import { LuImagePlus } from "react-icons/lu";
 
 export default function CreateFilm() {
   const { handleCreateFilm, handleUpdateFilm, films, handleLoadFilms } =
@@ -110,7 +111,12 @@ export default function CreateFilm() {
             <p>Not possible to change the film poster</p>
           ) : (
             <div className={style.inputs}>
-              <label htmlFor="poster">Poster: </label>
+              <label className={style.file} htmlFor="poster">
+                Add a poster{" "}
+                <span>
+                  <LuImagePlus />
+                </span>
+              </label>
               <input
                 type="file"
                 id="poster"

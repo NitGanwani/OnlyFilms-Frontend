@@ -3,7 +3,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  margin: 2em 0;
+  height: 100%;
+  width: auto;
 
   form {
     background: linear-gradient(
@@ -40,7 +42,7 @@
       position: absolute;
       bottom: 0;
       right: 0;
-      z-index: -99999;
+      z-index: -1;
       transition: all 0.4s;
     }
 
@@ -48,17 +50,15 @@
       transform: translate(0%, 0%);
       width: 100%;
       height: 100%;
-      background: #28282d;
+      background-color: rgba(0, 0, 0, 0.9);
       border-radius: 10px;
     }
 
     button::after {
       transform: translate(10px, 10px);
-      width: 35px;
-      height: 35px;
-      background: #ffffff15;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      width: 0;
+      height: 0;
+      background-color: gray;
       border-radius: 50px;
     }
 
@@ -76,7 +76,7 @@
     }
 
     button::after {
-      transition: 0s;
+      transition: 0.5s;
       transform: translate(0, 5%);
     }
   }
@@ -89,9 +89,49 @@
     font-family: "Ysabeau SC", sans-serif;
     padding: 0.5em;
 
+    textarea {
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      font-family: "Ysabeau SC", sans-serif;
+    }
+
+    select {
+      margin-top: 1em;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+      cursor: pointer;
+      option {
+        background-color: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 1em;
+        margin: 1em;
+      }
+    }
+
     input {
       all: unset;
-      border-bottom: 1px rgba(255, 255, 255, 0.748) solid;
+      border-bottom: 3px rgba(0, 0, 0, 0.9) solid;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .file {
+      border-bottom: 3px rgba(0, 0, 0, 0.9) solid;
+      display: flex;
+      align-items: center;
+      height: 4em;
+      span {
+        padding-left: 0.5em;
+      }
+    }
+
+    .file:hover {
+      transition: all 0.5s ease-in-out;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
     }
   }
 
