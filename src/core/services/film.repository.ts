@@ -15,8 +15,17 @@ export class FilmRepository {
   }
 
   async create(item: FormData): Promise<Film> {
-    const response = await fetch(this.url + "/create", {
+    const response = await fetch(this.url + "/", {
       method: "POST",
+      body: item,
+      headers: { Authorization: "Bearer " + this.token },
+    });
+    return response.json() as Promise<Film>;
+  }
+
+  async udpdate(id: Film["id"], item: FormData): Promise<Film> {
+    const response = await fetch(this.url + "/" + id, {
+      method: "PATCH",
       body: item,
       headers: { Authorization: "Bearer " + this.token },
     });
