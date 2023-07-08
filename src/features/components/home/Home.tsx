@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { Header } from "../header/Header";
+import { GiFilmSpool } from "react-icons/gi";
+
 import style from "./Home.module.scss";
 
 export default function Home() {
@@ -44,6 +46,9 @@ export default function Home() {
             take a look to our list of <a href="/list">films</a>.
           </p>
         </div>
+        <span>
+          <GiFilmSpool />
+        </span>
         <div className={style.register}>
           <p>
             If you are ready to share your feelings,{" "}

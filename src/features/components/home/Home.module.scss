@@ -1,29 +1,33 @@
 .welcome {
-  font-family: "Cinzel", serif;
-  padding: 1.3em;
+  font-family: "Ysabeau SC", sans-serif;
+  padding: 1.3em 15vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  word-spacing: 0.2em;
-  text-align: justify;
+  text-align: center;
 
   a {
     text-decoration: underline;
     font-size: 1.1rem;
+    color: crimson;
+    text-decoration: white;
   }
 
   a:visited {
-    color: white;
+    color: crimson;
   }
 
   button {
     margin: 1em;
+    width: 10em;
     padding: 1em;
-    border-radius: 1rem;
-    border: solid 0.2em white;
-    background-color: transparent;
+    border: none;
+    background-color: crimson;
+    font-family: "Ysabeau SC", sans-serif;
+    text-transform: uppercase;
     color: white;
+    font-weight: 600;
   }
 
   button:hover {
@@ -33,12 +37,14 @@
   }
 
   .intro {
+    max-width: 50em;
     font-size: 1.1rem;
     padding: 0.2em;
     font-weight: 900;
   }
 
   .films {
+    max-width: 50em;
     font-size: 0.9rem;
     padding: 0.6em;
     margin: 0.5em;
@@ -46,9 +52,20 @@
   }
 
   .register {
+    max-width: 50em;
     font-size: 0.9rem;
     padding: 0.6em;
     margin: 0.5em;
     background-color: rgba(0, 0, 0, 0.211);
+  }
+
+  img {
+    width: 100vw;
+    opacity: 0.5;
+  }
+
+  span {
+    font-size: 10em;
+    padding: 2vw 0 0 0;
   }
 }
