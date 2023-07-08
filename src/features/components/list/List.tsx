@@ -5,6 +5,9 @@ import style from "./List.module.scss";
 import { FilmCard } from "../film/FilmCard";
 import { useUsers } from "../../hooks/use.users";
 import { useNavigate } from "react-router-dom";
+import { PiFilmSlate } from "react-icons/pi";
+import { GiFilmProjector } from "react-icons/gi";
+import { ImExit } from "react-icons/im";
 
 export default function List() {
   const { films, handleLoadFilms } = useFilms();
@@ -22,17 +25,39 @@ export default function List() {
 
   return (
     <>
-      {token ? (
-        <>
-          <p>Hola {currentUser}</p>
-          <button onClick={() => navigate("/create")}>CREATE NEW FILM</button>
-          <button onClick={handleUser}>LOG OUT</button>
-        </>
-      ) : (
-        <p>Hola don Nadie</p>
-      )}
       <div className={style.list}>
         <Header title="OnlyFilms" subtitle="Feel your Films"></Header>
+        {token ? (
+          <>
+            <section className={style.greetings}>
+              <p>Hi {currentUser}</p>
+              <div className={style.userControls}>
+                <div>
+                  <button onClick={() => navigate("/create")}>
+                    ADD A FILM{" "}
+                  </button>
+                  <span>
+                    <PiFilmSlate />
+                  </span>
+                </div>
+                <div>
+                  <button>YOUR FILMS </button>
+                  <span>
+                    <GiFilmProjector />
+                  </span>
+                </div>
+                <div>
+                  <button onClick={handleUser}>LOG OUT </button>
+                  <span>
+                    <ImExit />
+                  </span>
+                </div>
+              </div>
+            </section>
+          </>
+        ) : (
+          ""
+        )}
         <div className={style.films}>
           <ul>
             {films.map((item) => (

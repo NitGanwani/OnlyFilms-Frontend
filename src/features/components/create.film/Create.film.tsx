@@ -4,6 +4,8 @@ import { Header } from "../header/Header";
 import style from "./Create.film.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { Film } from "../../models/film";
+import Swal from "sweetalert2";
+import { LuImagePlus } from "react-icons/lu";
 
 export default function CreateFilm() {
   const { handleCreateFilm, handleUpdateFilm, films, handleLoadFilms } =
@@ -37,11 +39,22 @@ export default function CreateFilm() {
     const filmData = new FormData(filmForm);
 
     if (id) {
-      console.log(id, "este id");
       await handleUpdateFilm(id, filmData);
-      console.log(filmForm);
     } else {
       await handleCreateFilm(filmData);
+      Swal.fire({
+        width: "20em",
+        icon: "success",
+        title: "GREAT SUCCESS",
+        text: "FILM ADDED SUCCESFULLY",
+        background:
+          "linear-gradient(to right, rgba(20, 20, 20), rgba(0, 0, 0))",
+        color: "white",
+        iconColor: "green",
+        showConfirmButton: false,
+        padding: "4em 0",
+        timer: 2000,
+      });
     }
 
     navigate("/list");
@@ -68,15 +81,15 @@ export default function CreateFilm() {
         <form onSubmit={handleSubmit} aria-label="form" className="form">
           <div className={style.inputs}>
             <label htmlFor="title">Title: </label>
-            <input type="text" id="title" name="title" />
+            <input type="text" id="title" name="title" required />
           </div>
           <div className={style.inputs}>
             <label htmlFor="release">Year of release: </label>
-            <input type="text" id="release" name="release" />
+            <input type="text" id="release" name="release" required />
           </div>
           <div className={style.inputs}>
             <label htmlFor="genre">Select a genre: </label>
-            <select name="genre" id="genre">
+            <select name="genre" id="genre" required>
               <option value="Action">Action</option>
               <option value="Drama">Drama</option>
               <option value="Animation">Animation</option>
@@ -91,20 +104,37 @@ export default function CreateFilm() {
               id="synopsis"
               cols={100}
               rows={5}
+              required
             ></textarea>
           </div>
           {id ? (
             <p>Not possible to change the film poster</p>
           ) : (
             <div className={style.inputs}>
-              <label htmlFor="poster">Poster: </label>
-              <input type="file" id="poster" name="poster" accept=".png" />
+              <label className={style.file} htmlFor="poster">
+                Add a poster{" "}
+                <span>
+                  <LuImagePlus />
+                </span>
+              </label>
+              <input
+                type="file"
+                id="poster"
+                name="poster"
+                accept=".png"
+                required
+              />
             </div>
           )}
-
-          <div className={style.submit}>
-            <button type="submit">Sign Up</button>
-          </div>
+          {id ? (
+            <div className={style.submit}>
+              <button type="submit">Save Changes</button>
+            </div>
+          ) : (
+            <div className={style.submit}>
+              <button type="submit">Add Film</button>
+            </div>
+          )}
         </form>
       </div>
     </>
