@@ -10,9 +10,18 @@ import { GiFilmProjector } from "react-icons/gi";
 import { ImExit } from "react-icons/im";
 
 export default function List() {
-  const { films, handleLoadFilms } = useFilms();
+  const {
+    films,
+    handleLoadFilms,
+    handleNextPage,
+    handlePreviousPage,
+    count,
+    page,
+  } = useFilms();
   const { handleLogoutUser, token, currentUser } = useUsers();
   const navigate = useNavigate();
+
+  const offset = 6 * page;
 
   useEffect(() => {
     handleLoadFilms();
@@ -65,6 +74,22 @@ export default function List() {
             ))}
           </ul>
         </div>
+        <div>
+          {page > 1 ? (
+            <button onClick={handlePreviousPage}>&#60;</button>
+          ) : (
+            <button onClick={handlePreviousPage} disabled>
+              &#60;
+            </button>
+          )}
+        </div>
+        {offset < count ? (
+          <button onClick={handleNextPage}>&#62;</button>
+        ) : (
+          <button onClick={handleNextPage} disabled>
+            &#62;
+          </button>
+        )}
       </div>
     </>
   );

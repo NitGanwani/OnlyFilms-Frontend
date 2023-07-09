@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFilms } from "../../hooks/use.films";
 import { Film } from "../../models/film";
 import { Header } from "../header/Header";
@@ -6,9 +6,16 @@ import style from "./FilmDetail.module.scss";
 
 export default function FilmDetail() {
   const { id } = useParams();
-  const { films } = useFilms();
+  const { films, handleDeleteFilm } = useFilms();
+  const navigate = useNavigate();
 
   const item: Film = films.find((item) => item.id === id) as Film;
+
+  const handleDelete = () => {
+    handleDeleteFilm(item.id);
+    navigate("/list");
+  };
+  console.log(films);
 
   return (
     <>
@@ -23,6 +30,7 @@ export default function FilmDetail() {
           <li className={style.description}>{item.synopsis}</li>
         </ul>
       </div>
+      <button onClick={handleDelete}>DELETE</button>
     </>
   );
 }

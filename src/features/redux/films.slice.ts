@@ -4,10 +4,14 @@ import { FilmRepository } from "../../core/services/film.repository";
 
 export type FilmsState = {
   films: Film[];
+  count: number;
+  page: number;
 };
 
 const initialState: FilmsState = {
   films: [] as Film[],
+  count: 0,
+  page: 1,
 };
 
 export const loadFilmsAsync = createAsyncThunk(
@@ -32,14 +36,33 @@ export const updateFilmAsync = createAsyncThunk<
   return await repo.udpdate(id, film);
 });
 
+export const deleteFilmAsync = createAsyncThunk<
+  string,
+  { repo: FilmRepository; id: Film["id"] }
+>("films/delete", async ({ repo, id }) => {
+  const response = await repo.delete(id);
+  return response ? id : "";
+});
+
 const filmsSlice = createSlice({
   name: "films",
   initialState,
-  reducers: {},
+  reducers: {
+    nextPage: (state) => ({
+      ...state,
+      page: state.page + 1,
+    }),
+    previousPage: (state) => ({
+      ...state,
+      page: state.page - 1,
+    }),
+  },
   extraReducers: (builder) => {
     builder.addCase(loadFilmsAsync.fulfilled, (state, { payload }) => ({
       ...state,
-      films: payload,
+      films: payload.items,
+      count: payload.count,
+      page: payload.page,
     }));
     builder.addCase(createFilmAsync.fulfilled, (state, { payload }) => ({
       ...state,
@@ -51,7 +74,12 @@ const filmsSlice = createSlice({
         item.id === payload.id ? payload : item
       ),
     }));
+    builder.addCase(deleteFilmAsync.fulfilled, (state, { payload }) => ({
+      ...state,
+      films: state.films.filter((item) => item.id !== payload),
+    }));
   },
 });
 
 export default filmsSlice.reducer;
+export const ac = filmsSlice.actions;
