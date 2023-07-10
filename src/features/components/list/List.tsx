@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { SyntheticEvent, useEffect } from "react";
 import { useFilms } from "../../hooks/use.films";
 import { Header } from "../header/Header";
 import style from "./List.module.scss";
@@ -15,13 +15,32 @@ export default function List() {
     handleLoadFilms,
     handleNextPage,
     handlePreviousPage,
-    count,
-    page,
+    handleLoadFiltered,
+    next,
+    previous,
   } = useFilms();
   const { handleLogoutUser, token, currentUser } = useUsers();
   const navigate = useNavigate();
 
-  const offset = 6 * page;
+  const handleFilter = (event: SyntheticEvent) => {
+    const element = event.target as HTMLButtonElement;
+    if (element.name === "genre") {
+      const filter = `genre=${element.value}`;
+      handleLoadFiltered(filter);
+    }
+  };
+
+  const handleLoadNext = () => {
+    const url = next;
+    if (!url) return;
+    handleNextPage(url);
+  };
+
+  const handleLoadPrevious = () => {
+    const url = previous;
+    if (!url) return;
+    handlePreviousPage(url);
+  };
 
   useEffect(() => {
     handleLoadFilms();
@@ -75,22 +94,45 @@ export default function List() {
           </ul>
         </div>
         <div>
-          {page > 1 ? (
-            <button onClick={handlePreviousPage}>&#60;</button>
+          {previous ? (
+            <button onClick={handleLoadPrevious}>&#60;</button>
           ) : (
-            <button onClick={handlePreviousPage} disabled>
+            <button onClick={handleLoadPrevious} disabled>
               &#60;
             </button>
           )}
         </div>
-        {offset < count ? (
-          <button onClick={handleNextPage}>&#62;</button>
+        {next ? (
+          <button onClick={handleLoadNext}>&#62;</button>
         ) : (
-          <button onClick={handleNextPage} disabled>
+          <button onClick={handleLoadNext} disabled>
             &#62;
           </button>
         )}
       </div>
+      <section>
+        <div>
+          <button onClick={handleLoadFilms}>SHOW ALL</button>
+          <button onClick={handleFilter} name="genre" value="Action">
+            ACTION
+          </button>
+          <button onClick={handleFilter} name="genre" value="Sci-Fi">
+            SCI-FI
+          </button>
+          <button onClick={handleFilter} name="genre" value="Comedy">
+            COMEDY
+          </button>
+          <button onClick={handleFilter} name="genre" value="Horror">
+            HORROR
+          </button>
+          <button onClick={handleFilter} name="genre" value="Animation">
+            ANIMATION
+          </button>
+          <button onClick={handleFilter} name="genre" value="Drama">
+            DRAMA
+          </button>
+        </div>
+      </section>
     </>
   );
 }

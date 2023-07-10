@@ -58,19 +58,6 @@ export default function CreateFilm() {
     }
 
     navigate("/list");
-    // try {
-
-    //   if (response.ok) {
-    //     handleCreateFilm(filmData);
-    //     filmForm.reset();
-    //     navigate("/list");
-    //   } else {
-    //     console.log(state);
-    //     console.log("Error al añadir pelicula");
-    //   }
-    // } catch (error) {
-    //   console.log("ERROR GRANDIOSO");
-    // }
   };
 
   return (
@@ -95,6 +82,7 @@ export default function CreateFilm() {
               <option value="Animation">Animation</option>
               <option value="Sci-Fi">Sci-Fi</option>
               <option value="Horror">Horror</option>
+              <option value="Comedy">Comedy</option>
             </select>
           </div>
           <div className={style.inputs}>

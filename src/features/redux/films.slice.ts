@@ -1,23 +1,32 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Film } from "../models/film";
 import { FilmRepository } from "../../core/services/film.repository";
+import { ApiAnswer } from "../types/api.response";
 
 export type FilmsState = {
   films: Film[];
   count: number;
-  page: number;
+  next: string | null;
+  previous: string | null;
 };
 
 const initialState: FilmsState = {
   films: [] as Film[],
   count: 0,
-  page: 1,
+  next: null,
+  previous: null,
 };
 
-export const loadFilmsAsync = createAsyncThunk(
+interface GetFilmPayload {
+  repo: FilmRepository;
+  url: string;
+  genre?: string;
+}
+
+export const loadFilmsAsync = createAsyncThunk<ApiAnswer, GetFilmPayload>(
   "films/load",
-  async (repo: FilmRepository) => {
-    const response = await repo.getAll();
+  async ({ repo, url, genre }) => {
+    const response = await repo.getAll(url, genre);
     return response;
   }
 );
@@ -48,21 +57,22 @@ const filmsSlice = createSlice({
   name: "films",
   initialState,
   reducers: {
-    nextPage: (state) => ({
-      ...state,
-      page: state.page + 1,
-    }),
-    previousPage: (state) => ({
-      ...state,
-      page: state.page - 1,
-    }),
+    // nextPage: (state) => ({
+    //   ...state,
+    //   page: state.page + 1,
+    // }),
+    // previousPage: (state) => ({
+    //   ...state,
+    //   page: state.page - 1,
+    // }),
   },
   extraReducers: (builder) => {
     builder.addCase(loadFilmsAsync.fulfilled, (state, { payload }) => ({
       ...state,
       films: payload.items,
       count: payload.count,
-      page: payload.page,
+      next: payload.next,
+      previous: payload.previous,
     }));
     builder.addCase(createFilmAsync.fulfilled, (state, { payload }) => ({
       ...state,
@@ -82,4 +92,3 @@ const filmsSlice = createSlice({
 });
 
 export default filmsSlice.reducer;
-export const ac = filmsSlice.actions;

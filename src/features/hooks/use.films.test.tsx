@@ -7,6 +7,7 @@ import { store } from "../../core/store/store";
 import userEvent from "@testing-library/user-event";
 import { createFilmAsync, loadFilmsAsync } from "../redux/films.slice";
 
+const mockId = "1";
 const mockFilm = {
   title: "Raquelinator",
   release: "2023",
@@ -17,12 +18,13 @@ const mockRepo = {
 } as unknown as FilmRepository;
 
 function TestComponent() {
-  const { handleLoadFilms, handleCreateFilm } = useFilms();
+  const { handleLoadFilms, handleCreateFilm, handleUpdateFilm } = useFilms();
 
   return (
     <>
       <button onClick={() => handleCreateFilm(mockFilm)}></button>
       <button onClick={() => handleLoadFilms()}></button>
+      <button onClick={() => handleUpdateFilm(mockId, mockFilm)}></button>
     </>
   );
 }
@@ -57,5 +59,15 @@ describe("Given the useUsers custom hook", () => {
         expect(mockRepo.getAll).toHaveBeenCalled();
       });
     });
+
+    // test("Then the handleUpdateFilm should be called", async () => {
+    //   await act(async () => {
+    //     await userEvent.click(elements[2]);
+    //     store.dispatch(
+    //       updateFilmAsync({ repo: mockRepo, id: mockId, film: mockFilm })
+    //     );
+    //     expect(mockRepo.udpdate).toHaveBeenCalled();
+    //   });
+    // });
   });
 });

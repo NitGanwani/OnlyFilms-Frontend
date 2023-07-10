@@ -3,7 +3,8 @@ import { User } from "../models/user";
 
 export type ApiAnswer = {
   items: Film[];
-  page: number;
+  next: string | null;
+  previous: string | null;
   count: number;
 };
 

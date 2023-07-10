@@ -1,18 +1,21 @@
 import { ApiAnswer } from "../../features/types/api.response";
 import { Film } from "../../features/models/film";
-import { store } from "../store/store";
 
 export class FilmRepository {
   constructor(public url: string, public token: string) {}
 
-  async getAll(): Promise<ApiAnswer> {
-    const offset = store.getState().films.page;
-    const response = await fetch(`${this.url}?offset=${offset - 1}`);
+  async getAll(url = this.url, genre?: string): Promise<ApiAnswer> {
+    let urlToSend = "";
+    !genre ? (urlToSend = url) : (urlToSend = `${url}?${genre}`);
+    console.log(urlToSend);
+    const response = await fetch(urlToSend);
     if (!response.ok) {
       const message = `Error: ${response.status}. ${response.statusText}`;
       throw new Error(message);
     }
+
     const answer = (await response.json()) as ApiAnswer;
+    console.log(answer);
     return answer;
   }
 
@@ -31,7 +34,8 @@ export class FilmRepository {
       body: item,
       headers: { Authorization: "Bearer " + this.token },
     });
-    return response.json() as Promise<Film>;
+    const updatedFilm = await response.json();
+    return updatedFilm as Film;
   }
 
   async delete(id: Film["id"]): Promise<boolean> {

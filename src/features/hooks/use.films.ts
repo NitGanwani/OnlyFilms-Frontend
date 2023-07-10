@@ -3,7 +3,6 @@ import { AppDispatch, RootState } from "../../core/store/store";
 import { FilmRepository } from "../../core/services/film.repository";
 import { useCallback, useMemo } from "react";
 import {
-  ac,
   createFilmAsync,
   deleteFilmAsync,
   loadFilmsAsync,
@@ -12,7 +11,9 @@ import {
 import { Film } from "../models/film";
 
 export function useFilms() {
-  const { films, count, page } = useSelector((state: RootState) => state.films);
+  const { films, next, previous } = useSelector(
+    (state: RootState) => state.films
+  );
   const { token } = useSelector((state: RootState) => state.users);
 
   const dispatch: AppDispatch = useDispatch();
@@ -24,7 +25,7 @@ export function useFilms() {
   );
 
   const handleLoadFilms = useCallback(async () => {
-    await dispatch(loadFilmsAsync(repo));
+    await dispatch(loadFilmsAsync({ repo, url }));
   }, [repo, dispatch]);
 
   const handleCreateFilm = async (film: FormData) => {
@@ -39,14 +40,16 @@ export function useFilms() {
     await dispatch(deleteFilmAsync({ repo, id }));
   };
 
-  const handleNextPage = async () => {
-    dispatch(ac.nextPage());
-    await dispatch(loadFilmsAsync(repo));
+  const handleNextPage = async (url: string) => {
+    await dispatch(loadFilmsAsync({ repo, url }));
   };
 
-  const handlePreviousPage = async () => {
-    dispatch(ac.previousPage());
-    await dispatch(loadFilmsAsync(repo));
+  const handlePreviousPage = async (url: string) => {
+    await dispatch(loadFilmsAsync({ repo, url }));
+  };
+
+  const handleLoadFiltered = async (genre: string) => {
+    await dispatch(loadFilmsAsync({ repo, url, genre }));
   };
 
   return {
@@ -57,7 +60,8 @@ export function useFilms() {
     handleDeleteFilm,
     handleNextPage,
     handlePreviousPage,
-    count,
-    page,
+    handleLoadFiltered,
+    next,
+    previous,
   };
 }

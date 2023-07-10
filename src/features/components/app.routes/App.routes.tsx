@@ -19,7 +19,7 @@ export function AppRoutes() {
         <Route path="/register" element={<Register></Register>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/create" element={<CreateFilm></CreateFilm>}></Route>
-        <Route path="/create/:id" element={<CreateFilm></CreateFilm>}></Route>
+        <Route path="/update/:id" element={<CreateFilm></CreateFilm>}></Route>
         <Route path="*" element={<ErrorPage></ErrorPage>}></Route>
       </Routes>
     </Suspense>
