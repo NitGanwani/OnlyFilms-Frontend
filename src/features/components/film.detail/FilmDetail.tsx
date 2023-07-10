@@ -15,7 +15,6 @@ export default function FilmDetail() {
     handleDeleteFilm(item.id);
     navigate("/list");
   };
-  console.log(films);
 
   return (
     <>
@@ -30,6 +29,7 @@ export default function FilmDetail() {
           <li className={style.description}>{item.synopsis}</li>
         </ul>
       </div>
+      <button onClick={() => navigate(`/update/${item.id}`)}>EDIT</button>
       <button onClick={handleDelete}>DELETE</button>
     </>
   );
