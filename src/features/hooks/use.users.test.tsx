@@ -9,6 +9,10 @@ import { UserRepository } from "../../core/services/user.repository";
 import userEvent from "@testing-library/user-event";
 import { ac, loginUserAsync, registerUserAsync } from "../redux/users.slice";
 
+jest.mock("../../config", () => ({
+  url: "",
+}));
+
 const mockUser = {
   userName: "Nitin",
   email: "nitin@email.com",

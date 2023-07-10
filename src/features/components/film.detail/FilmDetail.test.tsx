@@ -19,6 +19,10 @@ jest.mock("../../hooks/use.films", () => ({
   }),
 }));
 
+jest.mock("../../../config", () => ({
+  url: "",
+}));
+
 describe("Given a FilmDetail component", () => {
   describe("When it is intstantiate", () => {
     test("Show character details on the screen from context", () => {

@@ -36,7 +36,7 @@ export const updateFilmAsync = createAsyncThunk<
   Film,
   { repo: FilmRepository; id: Film["id"]; film: FormData }
 >("films/update", async ({ repo, id, film }) => {
-  return await repo.udpdate(id, film);
+  return await repo.update(id, film);
 });
 
 export const deleteFilmAsync = createAsyncThunk<
@@ -50,16 +50,7 @@ export const deleteFilmAsync = createAsyncThunk<
 const filmsSlice = createSlice({
   name: "films",
   initialState,
-  reducers: {
-    // nextPage: (state) => ({
-    //   ...state,
-    //   page: state.page + 1,
-    // }),
-    // previousPage: (state) => ({
-    //   ...state,
-    //   page: state.page - 1,
-    // }),
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(loadFilmsAsync.fulfilled, (state, { payload }) => ({
       ...state,
@@ -75,7 +66,7 @@ const filmsSlice = createSlice({
     builder.addCase(updateFilmAsync.fulfilled, (state, { payload }) => ({
       ...state,
       films: state.films.map((item) =>
-        item.id === payload.id ? payload : item
+        item.id === payload?.id ? payload : item
       ),
     }));
     builder.addCase(deleteFilmAsync.fulfilled, (state, { payload }) => ({

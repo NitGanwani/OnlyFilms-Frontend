@@ -2,11 +2,14 @@ import { ApiAnswer } from "../../features/types/api.response";
 import { Film } from "../../features/models/film";
 
 export class FilmRepository {
-  constructor(public url: string, public token: string) {}
+  constructor(public url: string, public token: string) {
+    this.url += "film";
+  }
 
   async getAll(url = this.url, genre?: string): Promise<ApiAnswer> {
+    console.log(this.url);
     let urlToSend = "";
-    !genre ? (urlToSend = url) : (urlToSend = `${url}?${genre}`);
+    !genre ? (urlToSend = url) : (urlToSend = `${url}film?${genre}`);
     console.log(urlToSend);
     const response = await fetch(urlToSend);
     if (!response.ok) {
@@ -15,7 +18,6 @@ export class FilmRepository {
     }
 
     const answer = (await response.json()) as ApiAnswer;
-    console.log(answer);
     return answer;
   }
 
@@ -28,13 +30,14 @@ export class FilmRepository {
     return response.json() as Promise<Film>;
   }
 
-  async udpdate(id: Film["id"], item: FormData): Promise<Film> {
+  async update(id: Film["id"], item: FormData): Promise<Film> {
     const response = await fetch(this.url + "/" + id, {
       method: "PATCH",
       body: item,
       headers: { Authorization: "Bearer " + this.token },
     });
     const updatedFilm = await response.json();
+
     return updatedFilm as Film;
   }
 

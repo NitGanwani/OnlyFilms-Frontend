@@ -3,9 +3,11 @@ import { useFilms } from "../../hooks/use.films";
 import { Film } from "../../models/film";
 import { Header } from "../header/Header";
 import style from "./FilmDetail.module.scss";
+import { useUsers } from "../../hooks/use.users";
 
 export default function FilmDetail() {
   const { id } = useParams();
+  const { token } = useUsers();
   const { films, handleDeleteFilm } = useFilms();
   const navigate = useNavigate();
 
@@ -29,8 +31,14 @@ export default function FilmDetail() {
           <li className={style.description}>{item.synopsis}</li>
         </ul>
       </div>
-      <button onClick={() => navigate(`/update/${item.id}`)}>EDIT</button>
-      <button onClick={handleDelete}>DELETE</button>
+      {token ? (
+        <>
+          <button onClick={() => navigate(`/update/${item.id}`)}>EDIT</button>
+          <button onClick={handleDelete}>DELETE</button>{" "}
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
 }
