@@ -13,8 +13,7 @@ export default function List() {
   const {
     films,
     handleLoadFilms,
-    handleNextPage,
-    handlePreviousPage,
+    handlePaging,
     handleLoadFiltered,
     next,
     previous,
@@ -33,13 +32,13 @@ export default function List() {
   const handleLoadNext = () => {
     const url = next;
     if (!url) return;
-    handleNextPage(url);
+    handlePaging(url);
   };
 
   const handleLoadPrevious = () => {
     const url = previous;
     if (!url) return;
-    handlePreviousPage(url);
+    handlePaging(url);
   };
 
   useEffect(() => {

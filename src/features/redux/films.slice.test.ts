@@ -34,7 +34,7 @@ describe("Given the films slice reducer", () => {
       store.dispatch(
         updateFilmAsync({ repo, id: film.id as string, film: filmFormData })
       );
-      expect(repo.udpdate).toHaveBeenCalled();
+      expect(repo.update).toHaveBeenCalled();
     });
   });
 });

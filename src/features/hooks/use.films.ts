@@ -9,6 +9,7 @@ import {
   updateFilmAsync,
 } from "../redux/films.slice";
 import { Film } from "../models/film";
+import { url } from "../../config";
 
 export function useFilms() {
   const { films, next, previous } = useSelector(
@@ -17,7 +18,6 @@ export function useFilms() {
   const { token } = useSelector((state: RootState) => state.users);
 
   const dispatch: AppDispatch = useDispatch();
-  const url = "https://nitin-onlyfilms.onrender.com/film";
 
   const repo: FilmRepository = useMemo(
     () => new FilmRepository(url, token as string),
@@ -25,11 +25,11 @@ export function useFilms() {
   );
 
   const handleLoadFilms = useCallback(async () => {
-    await dispatch(loadFilmsAsync({ repo, url }));
+    await dispatch(loadFilmsAsync({ repo, url: url + "film" }));
   }, [repo, dispatch]);
 
   const handleCreateFilm = async (film: FormData) => {
-    dispatch(createFilmAsync({ repo, film }));
+    await dispatch(createFilmAsync({ repo, film }));
   };
 
   const handleUpdateFilm = async (id: Film["id"], film: FormData) => {
@@ -40,11 +40,7 @@ export function useFilms() {
     await dispatch(deleteFilmAsync({ repo, id }));
   };
 
-  const handleNextPage = async (url: string) => {
-    await dispatch(loadFilmsAsync({ repo, url }));
-  };
-
-  const handlePreviousPage = async (url: string) => {
+  const handlePaging = async (url: string) => {
     await dispatch(loadFilmsAsync({ repo, url }));
   };
 
@@ -58,8 +54,7 @@ export function useFilms() {
     handleCreateFilm,
     handleUpdateFilm,
     handleDeleteFilm,
-    handleNextPage,
-    handlePreviousPage,
+    handlePaging,
     handleLoadFiltered,
     next,
     previous,
