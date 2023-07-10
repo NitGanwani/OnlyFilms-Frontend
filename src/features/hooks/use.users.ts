@@ -10,7 +10,7 @@ export function useUsers() {
     (state: RootState) => state.users
   );
   const dispatch: AppDispatch = useDispatch();
-  const url = "http://localhost:7777/";
+  const url = "https://nitin-onlyfilms.onrender.com/";
 
   const repo: UserRepository = useMemo(() => new UserRepository(url), []);
 

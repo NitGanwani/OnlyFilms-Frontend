@@ -17,7 +17,7 @@ export function useFilms() {
   const { token } = useSelector((state: RootState) => state.users);
 
   const dispatch: AppDispatch = useDispatch();
-  const url = "http://localhost:7777/film";
+  const url = "https://nitin-onlyfilms.onrender.com/film";
 
   const repo: FilmRepository = useMemo(
     () => new FilmRepository(url, token as string),
