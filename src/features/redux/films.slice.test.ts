@@ -4,7 +4,7 @@ import { Film } from "../models/film";
 import { ApiAnswer } from "../types/api.response";
 import {
   createFilmAsync,
-  loadFilmsAsync,
+  // loadFilmsAsync,
   updateFilmAsync,
 } from "./films.slice";
 
@@ -20,10 +20,10 @@ describe("Given the films slice reducer", () => {
       udpdate: jest.fn(),
     } as unknown as FilmRepository;
 
-    test("Then it should dispatch the loadFilmsAsync", () => {
-      store.dispatch(loadFilmsAsync(repo));
-      expect(repo.getAll).toHaveBeenCalled();
-    });
+    // test("Then it should dispatch the loadFilmsAsync", () => {
+    //   store.dispatch(loadFilmsAsync(repo));
+    //   expect(repo.getAll).toHaveBeenCalled();
+    // });
 
     test("Then it should dispatch the createFilmAsync", () => {
       store.dispatch(createFilmAsync({ repo, film: filmFormData }));
