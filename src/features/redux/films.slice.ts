@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Film } from "../models/film";
 import { FilmRepository } from "../../core/services/film.repository";
-import { ApiAnswer } from "../types/api.response";
+import { ApiAnswer, GetFilmPayload } from "../types/api.response";
 
 export type FilmsState = {
   films: Film[];
@@ -16,12 +16,6 @@ const initialState: FilmsState = {
   next: null,
   previous: null,
 };
-
-interface GetFilmPayload {
-  repo: FilmRepository;
-  url: string;
-  genre?: string;
-}
 
 export const loadFilmsAsync = createAsyncThunk<ApiAnswer, GetFilmPayload>(
   "films/load",

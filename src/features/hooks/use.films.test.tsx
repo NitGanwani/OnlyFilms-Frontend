@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "../../core/store/store";
 import userEvent from "@testing-library/user-event";
 import { createFilmAsync, loadFilmsAsync } from "../redux/films.slice";
+import { GetFilmPayload } from "../types/api.response";
 
 const mockId = "1";
 const mockFilm = {
@@ -16,6 +17,7 @@ const mockRepo = {
   getAll: jest.fn(),
   create: jest.fn(),
 } as unknown as FilmRepository;
+const mockPayload = {} as unknown as GetFilmPayload;
 
 function TestComponent() {
   const { handleLoadFilms, handleCreateFilm, handleUpdateFilm } = useFilms();
@@ -55,19 +57,9 @@ describe("Given the useUsers custom hook", () => {
     test("Then the handleLoadFilms function should be called", async () => {
       await act(async () => {
         await userEvent.click(elements[1]);
-        store.dispatch(loadFilmsAsync(mockRepo));
+        store.dispatch(loadFilmsAsync(mockPayload));
         expect(mockRepo.getAll).toHaveBeenCalled();
       });
     });
-
-    // test("Then the handleUpdateFilm should be called", async () => {
-    //   await act(async () => {
-    //     await userEvent.click(elements[2]);
-    //     store.dispatch(
-    //       updateFilmAsync({ repo: mockRepo, id: mockId, film: mockFilm })
-    //     );
-    //     expect(mockRepo.udpdate).toHaveBeenCalled();
-    //   });
-    // });
   });
 });
