@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../../core/store/store";
 import { MemoryRouter as Router } from "react-router-dom";
-import { PagingButtons } from "./PagingButtons";
+import { FilterFilms } from "./FilterFilms";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { useFilms } from "../../hooks/use.films";
@@ -26,7 +26,7 @@ describe("Given the PagingButtons component", () => {
       render(
         <Provider store={store}>
           <Router>
-            <PagingButtons></PagingButtons>
+            <FilterFilms></FilterFilms>
           </Router>
         </Provider>
       );
