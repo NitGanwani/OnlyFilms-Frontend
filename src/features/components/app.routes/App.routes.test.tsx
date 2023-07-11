@@ -119,7 +119,10 @@ describe("Given the AppRoutes component", () => {
 
   describe("When it is instantiate with a route /create", () => {
     const MockedComponentCreate = jest.fn().mockReturnValue(<h1>Create</h1>);
-    jest.mock("../create.film/Create.film", () => MockedComponentCreate);
+    jest.mock(
+      "../create.edit.film/CreateOrEditFilm",
+      () => MockedComponentCreate
+    );
     let element: HTMLElement;
 
     beforeEach(async () => {

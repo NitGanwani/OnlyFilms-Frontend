@@ -18,5 +18,6 @@ export default {
     "<rootDir>/src/vite-env.d.ts",
     "<rootDir>/src/core/store/store.ts",
     "<rootDir>/src/features/components/app/App.tsx",
+    "<rootDir>/src/features/components/filter.films/FilterFilms.tsx",
   ],
 };

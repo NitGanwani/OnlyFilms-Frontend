@@ -1,15 +1,22 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter as Router } from "react-router-dom";
-import CreateFilm from "./CreateOrEditFilm";
 import { store } from "../../../core/store/store";
 import "@testing-library/jest-dom";
 import { useFilms } from "../../hooks/use.films";
+import CreateOrEditFilm from "./CreateOrEditFilm";
 
 jest.mock("../../hooks/use.films", () => ({
   useFilms: jest.fn().mockReturnValue({
     handleCreateFilm: jest.fn(),
+    handleUpdateFilm: jest.fn(),
   }),
+}));
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: jest.fn().mockReturnValue({ id: "1" }),
+  useNavigate: jest.fn().mockReturnValue(jest.fn()),
 }));
 
 describe("Given the CreateFilm component", () => {
@@ -18,7 +25,7 @@ describe("Given the CreateFilm component", () => {
       render(
         <Provider store={store}>
           <Router>
-            <CreateFilm></CreateFilm>
+            <CreateOrEditFilm></CreateOrEditFilm>
           </Router>
         </Provider>
       );
@@ -32,6 +39,12 @@ describe("Given the CreateFilm component", () => {
       const form = screen.getByRole("form");
       await fireEvent.submit(form);
       expect(useFilms().handleCreateFilm).toHaveBeenCalled();
+    });
+
+    test("Then the handleUpdateFilm function should be called", async () => {
+      const form = screen.getByRole("form");
+      await fireEvent.submit(form);
+      expect(useFilms().handleUpdateFilm).toHaveBeenCalled();
     });
   });
 });
