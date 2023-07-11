@@ -8,6 +8,7 @@ export type UsersState = {
   currentUser: User["userName"];
   token?: string;
   isError: boolean | null;
+  userFilms: User["films"];
 };
 
 const initialState: UsersState = {
@@ -15,6 +16,7 @@ const initialState: UsersState = {
   currentUser: "",
   token: localStorage.getItem("userToken") as string | undefined,
   isError: null,
+  userFilms: [],
 };
 
 export const registerUserAsync = createAsyncThunk<
@@ -58,6 +60,7 @@ const usersSlice = createSlice({
     builder.addCase(loginUserAsync.fulfilled, (state, { payload }) => ({
       ...state,
       currentUser: payload.user.userName,
+      userFilms: payload.user.films,
       token: payload.token,
       isError: false,
     }));

@@ -7,7 +7,7 @@ import { UserRepository } from "../../core/services/user.repository";
 import { url } from "../../config";
 
 export function useUsers() {
-  const { users, currentUser, token, isError } = useSelector(
+  const { users, currentUser, token, isError, userFilms } = useSelector(
     (state: RootState) => state.users
   );
   const dispatch: AppDispatch = useDispatch();
@@ -35,5 +35,6 @@ export function useUsers() {
     token: token,
     handleLogoutUser,
     isError,
+    userFilms,
   };
 }
