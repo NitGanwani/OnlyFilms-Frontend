@@ -5,9 +5,9 @@ import { MemoryRouter as Router } from "react-router-dom";
 import { PagingButtons } from "./PagingButtons";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-// import { useFilms } from "../../hooks/use.films";
+import { useFilms } from "../../hooks/use.films";
 
-jest.mock("../../hooks/use.users", () => ({
+jest.mock("../../hooks/use.films", () => ({
   useFilms: jest.fn().mockReturnValue({
     handlePaging: jest.fn().mockResolvedValue("http://test.com?page=2"),
     next: "http://test.com?page=3",
@@ -36,7 +36,12 @@ describe("Given the PagingButtons component", () => {
     test("Then it should ", async () => {
       expect(elements[0]).toBeInTheDocument();
       await userEvent.click(elements[0]);
-      // expect(useFilms().handlePaging).toHaveBeenCalled();
+      expect(useFilms().handlePaging).toHaveBeenCalled();
+    });
+
+    test("Then it should ", async () => {
+      await userEvent.click(elements[2]);
+      expect(useFilms().handlePaging).toHaveBeenCalled();
     });
   });
 });
