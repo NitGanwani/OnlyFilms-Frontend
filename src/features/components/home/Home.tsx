@@ -5,31 +5,6 @@ import { GiFilmSpool } from "react-icons/gi";
 import style from "./Home.module.scss";
 
 export default function Home() {
-  // const { handleLogoutUser } = useUsers();
-  // const navigate = useNavigate();
-
-  // const { token } = useSelector((state: RootState) => state.users);
-
-  // const handleUser = () => {
-  //   if (token) {
-  //     runLogout();
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // };
-
-  // const handleRegister = () => {
-  //   navigate("/register");
-  // };
-
-  // const handleFilmsList = () => {
-  //   navigate("/list");
-  // };
-
-  // const runLogout = () => {
-  //   handleLogoutUser();
-  // };
-
   return (
     <>
       <div className={style.home}>
@@ -45,18 +20,19 @@ export default function Home() {
             <p>Feeling shy about sharing your emotions?</p>{" "}
             <p>
               Don't worry, feel free to take a look to our list of{" "}
-              <a href="/list">films</a>.
+              <Link to={"/list"}>Films</Link>.
             </p>
           </div>
-          <a href="/list" className={style.reel}>
+          <Link to={"/list"} className={style.reel}>
             <span>
               <GiFilmSpool />
             </span>
-          </a>
+          </Link>
           <div className={style.register}>
             <p>If you are ready to share your feelings</p>
             <p>
-              <a href="/register">create your account here</a> and get started.
+              <Link to={"/register"}>create your account here </Link>
+              and get started.
             </p>
           </div>
           <Link to="/login">

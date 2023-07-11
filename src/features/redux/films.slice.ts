@@ -66,7 +66,7 @@ const filmsSlice = createSlice({
     builder.addCase(updateFilmAsync.fulfilled, (state, { payload }) => ({
       ...state,
       films: state.films.map((item) =>
-        item.id === payload?.id ? payload : item
+        item.id === payload.id ? payload : item
       ),
     }));
     builder.addCase(deleteFilmAsync.fulfilled, (state, { payload }) => ({
