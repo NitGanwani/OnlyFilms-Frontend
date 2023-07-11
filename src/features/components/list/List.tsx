@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect } from "react";
+import { useEffect } from "react";
 import { useFilms } from "../../hooks/use.films";
 import { Header } from "../header/Header";
 import style from "./List.module.scss";
@@ -8,38 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { PiFilmSlate } from "react-icons/pi";
 import { GiFilmProjector } from "react-icons/gi";
 import { ImExit } from "react-icons/im";
+import { PagingButtons } from "../paging.buttons/PagingButtons";
+import { FilterFilms } from "../filter.films/FilterFilms";
 
 export default function List() {
-  const {
-    films,
-    handleLoadFilms,
-    handlePaging,
-    handleLoadFiltered,
-    next,
-    previous,
-  } = useFilms();
+  const { films, handleLoadFilms } = useFilms();
+
   const { handleLogoutUser, token, currentUser } = useUsers();
   const navigate = useNavigate();
-
-  const handleFilter = (event: SyntheticEvent) => {
-    const element = event.target as HTMLButtonElement;
-    if (element.name === "genre") {
-      const filter = `genre=${element.value}`;
-      handleLoadFiltered(filter);
-    }
-  };
-
-  const handleLoadNext = () => {
-    const url = next;
-    if (!url) return;
-    handlePaging(url);
-  };
-
-  const handleLoadPrevious = () => {
-    const url = previous;
-    if (!url) return;
-    handlePaging(url);
-  };
 
   useEffect(() => {
     handleLoadFilms();
@@ -68,7 +44,9 @@ export default function List() {
                   </span>
                 </div>
                 <div>
-                  <button>YOUR FILMS </button>
+                  <button onClick={() => navigate("/myfilms")}>
+                    YOUR FILMS{" "}
+                  </button>
                   <span>
                     <GiFilmProjector />
                   </span>
@@ -92,46 +70,9 @@ export default function List() {
             ))}
           </ul>
         </div>
-        <div>
-          {previous ? (
-            <button onClick={handleLoadPrevious}>&#60;</button>
-          ) : (
-            <button onClick={handleLoadPrevious} disabled>
-              &#60;
-            </button>
-          )}
-        </div>
-        {next ? (
-          <button onClick={handleLoadNext}>&#62;</button>
-        ) : (
-          <button onClick={handleLoadNext} disabled>
-            &#62;
-          </button>
-        )}
       </div>
-      <section>
-        <div>
-          <button onClick={handleLoadFilms}>SHOW ALL</button>
-          <button onClick={handleFilter} name="genre" value="Action">
-            ACTION
-          </button>
-          <button onClick={handleFilter} name="genre" value="Sci-Fi">
-            SCI-FI
-          </button>
-          <button onClick={handleFilter} name="genre" value="Comedy">
-            COMEDY
-          </button>
-          <button onClick={handleFilter} name="genre" value="Horror">
-            HORROR
-          </button>
-          <button onClick={handleFilter} name="genre" value="Animation">
-            ANIMATION
-          </button>
-          <button onClick={handleFilter} name="genre" value="Drama">
-            DRAMA
-          </button>
-        </div>
-      </section>
+      <PagingButtons></PagingButtons>
+      <FilterFilms></FilterFilms>
     </>
   );
 }

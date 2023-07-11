@@ -1,13 +1,13 @@
 import { useFilms } from "../../hooks/use.films";
 import { SyntheticEvent, useEffect } from "react";
 import { Header } from "../header/Header";
-import style from "./Create.film.module.scss";
+import style from "./CreateOrEditFilm.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { Film } from "../../models/film";
 import Swal from "sweetalert2";
 import { LuImagePlus } from "react-icons/lu";
 
-export default function CreateFilm() {
+export default function CreateOrEditFilm() {
   const { handleCreateFilm, handleUpdateFilm, films, handleLoadFilms } =
     useFilms();
   const { id } = useParams();
