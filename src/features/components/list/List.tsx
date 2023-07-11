@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { PiFilmSlate } from "react-icons/pi";
 import { GiFilmProjector } from "react-icons/gi";
 import { ImExit } from "react-icons/im";
-import { PagingButtons } from "../paging.buttons/PagingButtons";
 import { FilterFilms } from "../filter.films/FilterFilms";
 
 export default function List() {
@@ -63,6 +62,7 @@ export default function List() {
         ) : (
           ""
         )}
+        <FilterFilms></FilterFilms>
         <div className={style.films}>
           <ul>
             {films.map((item) => (
@@ -71,8 +71,6 @@ export default function List() {
           </ul>
         </div>
       </div>
-      <PagingButtons></PagingButtons>
-      <FilterFilms></FilterFilms>
     </>
   );
 }

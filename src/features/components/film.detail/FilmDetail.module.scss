@@ -10,7 +10,7 @@
   }
 
   img {
-    height: 35vw;
+    height: 30vw;
     width: fit-content;
     @media (max-width: 1450px) {
       transition: all 0.2s ease-in-out;
@@ -70,5 +70,25 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
+  }
+}
+
+.editControllers {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin: 1em 0.5em;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    width: 6em;
+    padding: 1em;
+    border: none;
+    font-family: "Ysabeau SC", sans-serif;
+  }
+  button:hover {
+    transition: 0.2s all ease-in-out;
+    color: crimson;
+    background-color: rgba(255, 255, 255, 0.2);
   }
 }

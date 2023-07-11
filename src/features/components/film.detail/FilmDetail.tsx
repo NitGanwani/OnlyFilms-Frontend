@@ -29,16 +29,20 @@ export default function FilmDetail() {
           </li>
           <li>Released in {item.release}</li>
           <li className={style.description}>{item.synopsis}</li>
+          <div className={style.editControllers}>
+            {token ? (
+              <>
+                <button onClick={() => navigate(`/update/${item.id}`)}>
+                  EDIT
+                </button>
+                <button onClick={handleDelete}>DELETE</button>{" "}
+              </>
+            ) : (
+              ""
+            )}
+          </div>
         </ul>
       </div>
-      {token ? (
-        <>
-          <button onClick={() => navigate(`/update/${item.id}`)}>EDIT</button>
-          <button onClick={handleDelete}>DELETE</button>{" "}
-        </>
-      ) : (
-        ""
-      )}
     </>
   );
 }
