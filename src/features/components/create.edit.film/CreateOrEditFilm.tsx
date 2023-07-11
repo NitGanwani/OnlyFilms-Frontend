@@ -16,11 +16,13 @@ export default function CreateOrEditFilm() {
   useEffect(() => {
     if (id) {
       const existingFilm: Film = films.find((film) => film.id === id) as Film;
+
       if (!existingFilm) {
         handleLoadFilms();
       }
       if (existingFilm) {
         const form = document.querySelector(".form") as HTMLFormElement;
+        console.dir(form.pendingProps);
         (form.elements.namedItem("title") as HTMLInputElement).value =
           existingFilm.title;
         (form.elements.namedItem("release") as HTMLInputElement).value =

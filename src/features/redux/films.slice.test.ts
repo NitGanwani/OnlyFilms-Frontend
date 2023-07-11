@@ -4,9 +4,10 @@ import { Film } from "../models/film";
 import { ApiAnswer, GetFilmPayload } from "../types/api.response";
 import {
   createFilmAsync,
+  deleteFilmAsync,
   // deleteFilmAsync,
   loadFilmsAsync,
-  // updateFilmAsync,
+  updateFilmAsync,
 } from "./films.slice";
 
 describe("Given the users slice reducer", () => {
@@ -15,8 +16,11 @@ describe("Given the users slice reducer", () => {
       id: "1",
       title: "El precio del poder",
     } as unknown as FormData;
-    const mockUpdatedFilm = { id: "1", title: "Scarface" } as Film;
-    // const mockId = "1" as Film["id"];
+    const mockUpdatedFilm = {
+      id: "1",
+      title: "Scarface",
+    } as unknown as FormData;
+    const mockId = "1" as Film["id"];
     const mockApiAnswer = {
       items: [{ id: "1", title: "Taxi Driver", genre: "Action" }],
       next: null,
@@ -26,7 +30,7 @@ describe("Given the users slice reducer", () => {
 
     const mockRepo: FilmRepository = {
       getAll: jest.fn().mockResolvedValue(mockApiAnswer),
-      create: jest.fn(),
+      create: jest.fn().mockResolvedValue("mamabuebo"),
       update: jest.fn().mockResolvedValue(mockUpdatedFilm),
       delete: jest.fn().mockResolvedValue(true),
     } as unknown as FilmRepository;
@@ -42,24 +46,37 @@ describe("Given the users slice reducer", () => {
 
     test("Then it should dispatch the loadFilmsAsync", () => {
       store.dispatch(loadFilmsAsync(mockPayload));
+      const qlq = store.getState().films;
+      qlq;
       expect(mockRepo.getAll).toHaveBeenCalled();
     });
 
     test("Then it should dispatch the createFilmAsync", () => {
       store.dispatch(createFilmAsync({ repo: mockRepo, film: mockFilm }));
+      const qlq = store.getState().films;
+      qlq;
       expect(mockRepo.create).toHaveBeenCalled();
     });
 
-    // test("Then it should dispatch the updateFilmAsync", () => {
-    //   store.dispatch(
-    //     updateFilmAsync({ repo: mockRepo, id: mockId, film: mockFilm })
-    //   );
-    //   expect(mockRepo.update).toHaveBeenCalledWith(mockUpdatedFilm);
-    // });
+    test("Then it should dispatch the updateFilmAsync", () => {
+      // store.dispatch(createFilmAsync({ repo: mockRepo, film: mockFilm }));
+      const qlq = store.getState().films;
+      store.dispatch(
+        updateFilmAsync({ repo: mockRepo, id: mockId, film: mockUpdatedFilm })
+      );
+      qlq;
+      expect(mockRepo.update).toHaveBeenCalled();
+    });
 
-    // test("Then it should dispatch the deleteFilmAsync", () => {
-    //   store.dispatch(deleteFilmAsync({ repo: mockRepo, id: mockId }));
-    //   expect(mockRepo.delete).toHaveBeenCalled();
-    // });
+    test("Then it should dispatch the deleteFilmAsync", () => {
+      store.dispatch(deleteFilmAsync({ repo: mockRepo, id: mockId }));
+      expect(mockRepo.delete).toHaveBeenCalled();
+    });
+
+    test("Then it should dispatch the deleteFilmAsync", () => {
+      mockRepo.delete = jest.fn().mockResolvedValue(false);
+      store.dispatch(deleteFilmAsync({ repo: mockRepo, id: "123123" }));
+      expect(mockRepo.delete).toHaveBeenCalled();
+    });
   });
 });
