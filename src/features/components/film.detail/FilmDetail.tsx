@@ -2,8 +2,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useFilms } from "../../hooks/use.films";
 import { Film } from "../../models/film";
 import { Header } from "../header/Header";
-import style from "./FilmDetail.module.scss";
+import detailStyle from "./FilmDetail.module.scss";
 import { useUsers } from "../../hooks/use.users";
+import { ComeBack } from "../come.back/ComeBack";
+import Swal from "sweetalert2";
 
 export default function FilmDetail() {
   const { id } = useParams();
@@ -15,21 +17,33 @@ export default function FilmDetail() {
 
   const handleDelete = () => {
     handleDeleteFilm(item.id);
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "GREAT SUCCESS!!",
+      text: "The film has been deleted",
+      background: "linear-gradient(to right, rgba(20, 20, 20), rgba(0, 0, 0))",
+      color: "white",
+      iconColor: "red",
+      showConfirmButton: false,
+      timer: 2000,
+    });
     navigate("/list");
   };
 
   return (
     <>
       <Header title="OnlyFilms" subtitle="Film Details"></Header>
-      <div className={style.details}>
+      <ComeBack></ComeBack>
+      <div className={detailStyle.details}>
         <img src={item.poster.url} alt={item.title} />
         <ul>
-          <li className={style.title}>
+          <li className={detailStyle.title}>
             {item.title} <span>({item.genre})</span>
           </li>
           <li>Released in {item.release}</li>
-          <li className={style.description}>{item.synopsis}</li>
-          <div className={style.editControllers}>
+          <li className={detailStyle.description}>{item.synopsis}</li>
+          <div className={detailStyle.editControllers}>
             {token ? (
               <>
                 <button onClick={() => navigate(`/update/${item.id}`)}>
@@ -38,7 +52,7 @@ export default function FilmDetail() {
                 <button onClick={handleDelete}>DELETE</button>{" "}
               </>
             ) : (
-              <p>hola</p>
+              <p>onlyfilmers</p>
             )}
           </div>
         </ul>

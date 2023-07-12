@@ -40,19 +40,28 @@ export default function CreateOrEditFilm() {
 
     if (id) {
       await handleUpdateFilm(id, filmData);
-    } else {
-      await handleCreateFilm(filmData);
       Swal.fire({
-        width: "20em",
+        position: "top-end",
         icon: "success",
-        title: "GREAT SUCCESS",
-        text: "FILM ADDED SUCCESFULLY",
+        title: "GREAT SUCCESS!!",
+        text: "The film has been updated correctly",
         background:
           "linear-gradient(to right, rgba(20, 20, 20), rgba(0, 0, 0))",
         color: "white",
-        iconColor: "green",
         showConfirmButton: false,
-        padding: "4em 0",
+        timer: 2000,
+      });
+    } else {
+      await handleCreateFilm(filmData);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "GREAT SUCCESS!!",
+        text: "The film has been added to the list",
+        background:
+          "linear-gradient(to right, rgba(20, 20, 20), rgba(0, 0, 0))",
+        color: "white",
+        showConfirmButton: false,
         timer: 2000,
       });
     }

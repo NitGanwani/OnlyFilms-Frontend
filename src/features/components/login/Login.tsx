@@ -19,6 +19,18 @@ export default function Login() {
         .value,
     } as Partial<User>;
     handleLoginUser(loggedUser);
+    Swal.fire({
+      width: "20em",
+      icon: "success",
+      title: "LOGIN SUCCESS!",
+      text: "Redirecting to the list of films",
+      background: "linear-gradient(to right, rgba(20, 20, 20), rgba(0, 0, 0))",
+      color: "white",
+      iconColor: "green",
+      showConfirmButton: false,
+      padding: "4em 0",
+      timer: 2000,
+    });
     element.reset();
   };
 

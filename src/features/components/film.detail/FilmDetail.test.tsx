@@ -75,7 +75,7 @@ describe("Given a FilmDetail component", () => {
       );
     });
     test("Then it should not show the buttons in the document", () => {
-      const button = screen.getByText("hola");
+      const button = screen.getByText("onlyfilmers");
       expect(button).toBeInTheDocument();
     });
   });

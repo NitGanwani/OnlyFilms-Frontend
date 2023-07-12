@@ -9,6 +9,7 @@ import { PiFilmSlate } from "react-icons/pi";
 import { GiFilmProjector } from "react-icons/gi";
 import { ImExit } from "react-icons/im";
 import { FilterFilms } from "../filter.films/FilterFilms";
+import Swal from "sweetalert2";
 
 export default function List() {
   const { films, handleLoadFilms } = useFilms();
@@ -21,6 +22,16 @@ export default function List() {
   }, [handleLoadFilms]);
 
   const handleUser = () => {
+    Swal.fire({
+      width: "20em",
+      title: "SEE YOU SOON",
+      text: "Enjoy your films",
+      background: "linear-gradient(to right, rgba(20, 20, 20), rgba(0, 0, 0))",
+      color: "red",
+      showConfirmButton: false,
+      padding: "4em 0",
+      timer: 2000,
+    });
     handleLogoutUser();
     navigate("/");
   };
