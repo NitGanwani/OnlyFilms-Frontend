@@ -5,7 +5,6 @@ import { ApiAnswer, GetFilmPayload } from "../types/api.response";
 import {
   createFilmAsync,
   deleteFilmAsync,
-  // deleteFilmAsync,
   loadFilmsAsync,
   updateFilmAsync,
 } from "./films.slice";
@@ -30,7 +29,7 @@ describe("Given the users slice reducer", () => {
 
     const mockRepo: FilmRepository = {
       getAll: jest.fn().mockResolvedValue(mockApiAnswer),
-      create: jest.fn().mockResolvedValue("mamabuebo"),
+      create: jest.fn().mockResolvedValue(mockFilm),
       update: jest.fn().mockResolvedValue(mockUpdatedFilm),
       delete: jest.fn().mockResolvedValue(true),
     } as unknown as FilmRepository;
@@ -40,31 +39,20 @@ describe("Given the users slice reducer", () => {
       url: "http://onlyfilms.com/",
     } as unknown as GetFilmPayload;
 
-    // const mockUrl = "http://test.com";
-
-    // const mockGenre = "Comedy";
-
     test("Then it should dispatch the loadFilmsAsync", () => {
       store.dispatch(loadFilmsAsync(mockPayload));
-      const qlq = store.getState().films;
-      qlq;
       expect(mockRepo.getAll).toHaveBeenCalled();
     });
 
     test("Then it should dispatch the createFilmAsync", () => {
       store.dispatch(createFilmAsync({ repo: mockRepo, film: mockFilm }));
-      const qlq = store.getState().films;
-      qlq;
       expect(mockRepo.create).toHaveBeenCalled();
     });
 
     test("Then it should dispatch the updateFilmAsync", () => {
-      // store.dispatch(createFilmAsync({ repo: mockRepo, film: mockFilm }));
-      const qlq = store.getState().films;
       store.dispatch(
         updateFilmAsync({ repo: mockRepo, id: mockId, film: mockUpdatedFilm })
       );
-      qlq;
       expect(mockRepo.update).toHaveBeenCalled();
     });
 
@@ -75,7 +63,7 @@ describe("Given the users slice reducer", () => {
 
     test("Then it should dispatch the deleteFilmAsync", () => {
       mockRepo.delete = jest.fn().mockResolvedValue(false);
-      store.dispatch(deleteFilmAsync({ repo: mockRepo, id: "123123" }));
+      store.dispatch(deleteFilmAsync({ repo: mockRepo, id: "69" }));
       expect(mockRepo.delete).toHaveBeenCalled();
     });
   });

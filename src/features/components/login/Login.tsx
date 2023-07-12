@@ -11,7 +11,6 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = (event: SyntheticEvent) => {
-    console.log(isError);
     event.preventDefault();
     const element = event.target as HTMLFormElement;
     const loggedUser = {
