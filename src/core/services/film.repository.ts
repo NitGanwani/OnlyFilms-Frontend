@@ -7,10 +7,8 @@ export class FilmRepository {
   }
 
   async getAll(url = this.url, genre?: string): Promise<ApiAnswer> {
-    console.log(this.url);
     let urlToSend = "";
     !genre ? (urlToSend = url) : (urlToSend = `${url}film?${genre}`);
-    console.log(urlToSend);
     const response = await fetch(urlToSend);
     if (!response.ok) {
       const message = `Error: ${response.status}. ${response.statusText}`;

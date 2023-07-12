@@ -6,7 +6,7 @@ import { FilmCard } from "../film/FilmCard";
 
 export default function UserFilms() {
   const { handleLoadFilms } = useFilms();
-  const { userFilms } = useUsers();
+  const { userFilms, token } = useUsers();
 
   useEffect(() => {
     handleLoadFilms;
@@ -17,9 +17,11 @@ export default function UserFilms() {
 
   return (
     <ul>
-      {films.map((film) => (
-        <FilmCard key={film.id} item={film}></FilmCard>
-      ))}
+      {token ? (
+        films.map((film) => <FilmCard key={film.id} item={film}></FilmCard>)
+      ) : (
+        <p>Sorry, you haven't added any film yet</p>
+      )}
     </ul>
   );
 }
