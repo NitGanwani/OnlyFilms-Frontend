@@ -38,7 +38,7 @@ export default function FilmDetail() {
                 <button onClick={handleDelete}>DELETE</button>{" "}
               </>
             ) : (
-              ""
+              <p>hola</p>
             )}
           </div>
         </ul>

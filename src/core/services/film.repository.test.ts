@@ -1,3 +1,4 @@
+import { Film } from "../../features/models/film";
 import { FilmRepository } from "./film.repository";
 
 describe("Given the FilmRepository class", () => {
@@ -21,6 +22,24 @@ describe("Given the FilmRepository class", () => {
       const response = await filmRepo.getAll();
 
       expect(global.fetch).toHaveBeenCalledWith(expectedUrl);
+      expect(response).toEqual(mockData);
+    });
+
+    test("Then it should fetch data from the API and return the response", async () => {
+      const mockData = [{}];
+      const genre = "genre";
+      const expectedUrl = "http://onlyfilms.com/";
+
+      global.fetch = jest.fn().mockResolvedValue({
+        ok: true,
+        json: jest.fn().mockResolvedValue(mockData),
+      });
+
+      const response = await filmRepo.getAll(expectedUrl, genre);
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        expectedUrl + "film" + "?" + genre
+      );
       expect(response).toEqual(mockData);
     });
 
@@ -104,6 +123,30 @@ describe("Given the FilmRepository class", () => {
         },
       });
       expect(response).toEqual(true);
+    });
+  });
+
+  describe("When calling the addComment method", () => {
+    test("Then it should fecth data from the API and return the response", async () => {
+      const mockId = "1";
+      const filmData = { id: "1" } as unknown as Partial<Film>;
+      const expectedUrl = `http://onlyfilms.com/film/addcomment/1`;
+
+      global.fetch = jest.fn().mockResolvedValue({
+        ok: true,
+        json: jest.fn().mockResolvedValue(filmData),
+      });
+
+      const response = await filmRepo.addComment(mockId, filmData);
+
+      expect(global.fetch).toHaveBeenCalledWith(expectedUrl, {
+        method: "PATCH",
+        body: JSON.stringify(filmData),
+        headers: {
+          Authorization: "Bearer " + mockToken,
+        },
+      });
+      expect(response).toEqual(filmData);
     });
   });
 });

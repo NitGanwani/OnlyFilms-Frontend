@@ -6,6 +6,7 @@ import { store } from "../../../core/store/store";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { useFilms } from "../../hooks/use.films";
+import { useUsers } from "../../hooks/use.users";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -59,6 +60,23 @@ describe("Given a FilmDetail component", () => {
       const editButton = screen.getAllByRole("button");
       await userEvent.click(editButton[0]);
       expect(useNavigate()).toHaveBeenCalled();
+    });
+  });
+
+  describe("When the component is rendered", () => {
+    beforeEach(() => {
+      useUsers().token = undefined;
+      render(
+        <Router initialEntries={["/detail/1"]}>
+          <Provider store={store}>
+            <FilmDetail />
+          </Provider>
+        </Router>
+      );
+    });
+    test("Then it should not show the buttons in the document", () => {
+      const button = screen.getByText("hola");
+      expect(button).toBeInTheDocument();
     });
   });
 });

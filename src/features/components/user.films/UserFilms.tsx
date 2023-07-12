@@ -13,7 +13,6 @@ export default function UserFilms() {
   }, [handleLoadFilms]);
 
   const films = userFilms as Film[];
-  console.log(films);
 
   return (
     <ul>

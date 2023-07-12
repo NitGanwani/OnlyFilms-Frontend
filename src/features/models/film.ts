@@ -1,4 +1,5 @@
 import { Image } from "../types/image";
+import { User } from "./user";
 
 export type Film = {
   id: string;
@@ -7,4 +8,10 @@ export type Film = {
   genre: "Action" | "Drama" | "Comedy" | "Horror" | "Sci-Fi" | "Animation";
   synopsis: string;
   poster: Image;
+  comments: Comment[];
+};
+
+export type Comment = {
+  comment: string;
+  owner: User;
 };
