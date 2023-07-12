@@ -23,7 +23,11 @@ export default function Home() {
               <Link to={"/list"}>Films</Link>.
             </p>
           </div>
-          <Link to={"/list"} className={style.reel}>
+          <Link
+            to={"/list"}
+            className={style.reel}
+            aria-label="Access to the list of films clicking in this icon button."
+          >
             <span>
               <GiFilmSpool />
             </span>
