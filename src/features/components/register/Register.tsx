@@ -26,8 +26,8 @@ export default function Register() {
       Swal.fire({
         width: "20em",
         icon: "error",
-        title: "ERROR",
-        text: "INVALID USERNAME OR PASSWORD",
+        title: "REGISTER ERROR",
+        text: "Try again please",
         background:
           "linear-gradient(to right, rgba(20, 20, 20), rgba(0, 0, 0))",
         color: "white",
@@ -38,6 +38,19 @@ export default function Register() {
       });
     } else {
       handleRegisterUser(data);
+      Swal.fire({
+        width: "20em",
+        icon: "success",
+        title: "WELCOME TO ONLYFILMS",
+        text: "Redirecting to login process",
+        background:
+          "linear-gradient(to right, rgba(20, 20, 20), rgba(0, 0, 0))",
+        color: "white",
+        iconColor: "green",
+        showConfirmButton: false,
+        padding: "4em 0",
+        timer: 2000,
+      });
       formElement.reset();
       navigate("/login");
     }
