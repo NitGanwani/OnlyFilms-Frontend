@@ -16,13 +16,11 @@ export default function CreateOrEditFilm() {
   useEffect(() => {
     if (id) {
       const existingFilm: Film = films.find((film) => film.id === id) as Film;
-
       if (!existingFilm) {
         handleLoadFilms();
       }
       if (existingFilm) {
-        const form = document.querySelector(".form") as HTMLFormElement;
-        console.dir(form.pendingProps);
+        const form = document.querySelector(".form-nice") as HTMLFormElement;
         (form.elements.namedItem("title") as HTMLInputElement).value =
           existingFilm.title;
         (form.elements.namedItem("release") as HTMLInputElement).value =
@@ -67,7 +65,7 @@ export default function CreateOrEditFilm() {
       <Header title="OnlyFilms" subtitle="Create Film"></Header>
 
       <div className={style.form}>
-        <form onSubmit={handleSubmit} aria-label="form" className="form">
+        <form onSubmit={handleSubmit} aria-label="form" className="form-nice">
           <div className={style.inputs}>
             <label htmlFor="title">Title: </label>
             <input type="text" id="title" name="title" required />

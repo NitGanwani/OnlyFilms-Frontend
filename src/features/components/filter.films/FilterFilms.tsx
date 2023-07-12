@@ -16,6 +16,7 @@ export function FilterFilms() {
 
   const handleLoadNext = () => {
     const url = next;
+    console.log(url, "url aqui");
     if (!url) return;
     handlePaging(url);
   };

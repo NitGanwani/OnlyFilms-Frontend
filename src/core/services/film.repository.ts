@@ -46,4 +46,14 @@ export class FilmRepository {
     });
     return response.ok;
   }
+
+  async addComment(id: Film["id"], item: Partial<Film>) {
+    const response = await fetch(this.url + "/addcomment/" + id, {
+      method: "PATCH",
+      body: JSON.stringify(item),
+      headers: { Authorization: "Bearer " + this.token },
+    });
+    const updated = await response.json();
+    return updated as Partial<Film>;
+  }
 }
