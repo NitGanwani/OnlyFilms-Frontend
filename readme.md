@@ -2,7 +2,7 @@
 
 ## Descripción
 
-El frontend de esta aplicación es responsable de la interfaz de usuario y la interacción con el usuario. Está construido utilizando tecnologías como HTML, CSS y JavaScript, y utiliza el framework de React.js.
+El frontend de esta aplicación es responsable de la interfaz de usuario y la interacción con el usuario. Está construido utilizando tecnologías como HTML, CSS y JavaScript, Typescript y utiliza el framework de React.js con Redux.
 
 ## Características principales
 

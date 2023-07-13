@@ -59,18 +59,19 @@ describe("Given the CreateOrEditFilm component", () => {
         release: "2003",
         genre: "Drama",
         synopsis: "David's life",
-        poster: { url: "", urlOriginal: "" } as unknown as Image,
+        poster: { url: "gafo.jpg", urlOriginal: "" } as unknown as Image,
         comments: [{}] as unknown as Comment[],
       },
     ];
     render(
       <Provider store={store}>
-        <Router>
+        <Router initialEntries={["/update/1"]}>
           <CreateOrEditFilm></CreateOrEditFilm>
         </Router>
       </Provider>
     );
   });
+
   describe("When it is rendered and has a valid id in the params", () => {
     test("Then the handleUpdateFilm function should be called", async () => {
       const form = screen.getByRole("form");
